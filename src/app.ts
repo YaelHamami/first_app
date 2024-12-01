@@ -2,7 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
+import { postsRouter } from './routes/posts_route';
 
+const app = express();
 dotenv.config();
 const port = process.env.PORT;
 
@@ -12,10 +14,14 @@ const db = mongoose.connection;
 db.on("error", (error: any) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
-const app = express();
+const local_bodyParser = require("body-parser")
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/posts', postsRouter);
 // app.use('/comments', commentRoutes);
 app.get('/', (req, res) => {
     res.send("hello world")
