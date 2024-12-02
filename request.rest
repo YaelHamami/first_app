@@ -32,5 +32,12 @@ GET http://localhost:3000/posts
 ###
 
 POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+  "postId": "674cbf10e4304a6f3b4b5046", 
+  "content": "This is a great post! Thanks for sharing.",
+  "owner": "yael"
+}
 
 ###
