@@ -1,2 +1,25 @@
+###
+
 GET http://localhost:3000/posts/674cbf10e4304a6f3b4b5046
 
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+"title": "Hello", 
+"owner": "Kevin", 
+"content": "Hello World..."
+}
+
+###
+
+PUT http://localhost:3000/posts/674cbf10e4304a6f3b4b5046
+Content-Type: application/json
+
+{
+  "title": "Hello",
+  "owner": "Kevin",
+  "content": "Hello World..."
+}
