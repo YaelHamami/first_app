@@ -33,3 +33,12 @@ export const updatePost = async (req: any, res: any) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+export const getAllPosts = async (req: any, res: any) => {
+    try {
+        const posts = await postModel.find();
+        res.status(200).json(posts);
+    } catch (error: any) {
+        res.status(400).send(error.message);
+    }
+};
