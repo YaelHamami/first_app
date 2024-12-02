@@ -14,12 +14,8 @@ const db = mongoose.connection;
 db.on("error", (error: any) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
-const local_bodyParser = require("body-parser")
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true}));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/posts', postsRouter);
 // app.use('/comments', commentRoutes);
