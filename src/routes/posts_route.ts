@@ -12,5 +12,5 @@ postsRouter.post("/", createPost);
 // Update Post By ID
 postsRouter.put('/:id', updatePost);
 
-// Get All Posts
+// Get All Posts, or all posts published by a sender if provided
 postsRouter.get('/', getAllPostsOrBySender);
