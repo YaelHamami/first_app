@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-import { getPostById, createPost, updatePost, getAllPosts } from "../controllers/posts_controller";
+import { getPostById, createPost, updatePost, getAllPostsOrBySender } from "../controllers/posts_controller";
 export const postsRouter = express.Router();
 
 // Get Post By ID
@@ -13,4 +13,4 @@ postsRouter.post("/", createPost);
 postsRouter.put('/:id', updatePost);
 
 // Get All Posts
-postsRouter.get('/', getAllPosts);
+postsRouter.get('/', getAllPostsOrBySender);
