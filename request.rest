@@ -24,10 +24,10 @@ Content-Type: application/json
   "content": "Hello World..."
 }
 
-
 ###
 
 GET http://localhost:3000/posts
+
 
 
 // Comments
