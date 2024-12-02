@@ -23,3 +23,8 @@ Content-Type: application/json
   "owner": "Kevin",
   "content": "Hello World..."
 }
+
+
+###
+
+GET http://localhost:3000/posts
