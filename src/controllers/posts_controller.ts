@@ -6,9 +6,9 @@ export const getPostById = async (req: any, res: any) => {
         const post = await postModel.findById(postId);
         if (post != null) {
             res.status(200).send(post);
-            } else {
+        } else {
             res.status(404).send("Post not found");
-            }
+        }
     } catch (error: any) {
         res.status(400).send(error.message);
     }
@@ -34,10 +34,17 @@ export const updatePost = async (req: any, res: any) => {
     }
 };
 
-export const getAllPosts = async (req: any, res: any) => {
+export const getAllPostsOrBySender = async (req: any, res: any) => {
     try {
-        const posts = await postModel.find();
-        res.status(200).json(posts);
+        const { sender } = req.query;
+
+        if (sender) {
+            const posts = await postModel.find({ owner: sender });
+            res.status(200).json(posts);
+        } else {
+            const posts = await postModel.find();
+            res.status(200).json(posts);
+        }
     } catch (error: any) {
         res.status(400).send(error.message);
     }
