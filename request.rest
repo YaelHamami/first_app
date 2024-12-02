@@ -28,3 +28,9 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/posts
+
+###
+
+POST http://localhost:3000/comments
+
+###
