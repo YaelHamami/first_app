@@ -1,20 +1,25 @@
-###
+/////// Posts ///////
 
+### Get All posts
+GET http://localhost:3000/posts
+
+### Get Post By Id
 GET http://localhost:3000/posts/674cbf10e4304a6f3b4b5046
 
-###
+### Get Post By Sender
+GET http://localhost:3000/posts?sender=Sagi
 
+### Create Post
 POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
 "title": "Hello", 
-"owner": "Kevin", 
-"content": "Hello World..."
+"owner": "Sagi", 
+"content": "My Post..."
 }
 
-###
-
+### Update Post
 PUT http://localhost:3000/posts/674cbf10e4304a6f3b4b5046
 Content-Type: application/json
 
@@ -24,17 +29,22 @@ Content-Type: application/json
   "content": "Hello World..."
 }
 
-###
 
-GET http://localhost:3000/posts
-
-
-
-// Comments
-
+/////// Comments ///////
 
 ### Get All Comments
 GET http://localhost:3000/comments
 
 ### Get Comment By Id
-GET http://localhost:3000/comments/674asdasd04a6f3b4b5046
+GET http://localhost:3000/comments/674e089601ad1a1d187bf375
+
+### Create Comment
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+  "postId": "674cbf10e4304a6f3b4b5046", 
+  "content": "This is a great post! Thanks for sharing.",
+  "owner": "yael"
+}
+

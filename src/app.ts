@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 
-// app.use('/comments', commentRoutes);
 app.get('/', (req, res) => {
     res.send("hello world")
 })

@@ -10,6 +10,7 @@ export const getAllComments = async (req: any, res: any) => {
     }
 };
 
+// Get Comment By Id
 export const getCommentById = async (req: any, res: any) => {
     const commentId = req.params.id;
     try {
@@ -24,6 +25,7 @@ export const getCommentById = async (req: any, res: any) => {
     }
 };
 
+// Get Comments By PostId
 export const getCommentsByPostId = async (req: any, res: any) => {
     const postId = req.params.postId;
 
@@ -32,8 +34,19 @@ export const getCommentsByPostId = async (req: any, res: any) => {
         if (comments != null) {
             res.status(200).send(comments);
         } else {
-            res.status(404).send(`Comments of postId: ${postId} , were not found`);
+            res.status(404).send(`Comments of postId: ${postId} ,were not found`);
         }
+    } catch (error: any) {
+        res.status(400).send(error.message);
+    }
+};
+
+// Create Comment
+export const createComment = async (req: any, res: any) => {
+    const commentBody = req.body;
+    try {
+        const post = await commentModel.create(commentBody);
+        res.status(201).send(post);
     } catch (error: any) {
         res.status(400).send(error.message);
     }
