@@ -1,6 +1,10 @@
 import express from 'express';
 import { createComment } from "../controllers/comments_controller";
-export const commentRoutes = express.Router();
+import { getAllComments } from '../controllers/comments_controller';
+export const commentsRouter = express.Router();
+
+// Get All Comments
+commentsRouter.get('/', getAllComments);
 
 // Create Comment
-commentRoutes.post("/", createComment);
+commentsRouter.post("/", createComment);
