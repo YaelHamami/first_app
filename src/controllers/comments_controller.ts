@@ -32,22 +32,6 @@ export const getCommentById = async (req: any, res: any) => {
     }
 };
 
-// Get Comments By PostId
-export const getCommentsByPostId = async (req: any, res: any) => {
-    const postId = req.params.postId;
-
-    try {
-        const comments = await commentModel.find({ postId });
-        if (comments != null) {
-            res.status(200).send(comments);
-        } else {
-            res.status(404).send(`Comments of postId: ${postId} ,were not found`);
-        }
-    } catch (error: any) {
-        res.status(400).send(error.message);
-    }
-};
-
 // Create Comment
 export const createComment = async (req: any, res: any) => {
     const commentBody = req.body;
@@ -56,5 +40,16 @@ export const createComment = async (req: any, res: any) => {
         res.status(201).send(post);
     } catch (error: any) {
         res.status(400).send(error.message);
+    }
+};
+
+// Delete Comment
+export const deleteComment = async (req: any, res: any) => {
+    try {
+        const deleteComment = await commentModel.findByIdAndDelete(req.params.id);
+        if (!deleteComment) return res.status(404).json({ message: 'Comment not found' });
+        res.status(200).json(deleteComment);
+    } catch (err: any) {
+        res.status(500).json({ error: err.message });
     }
 };

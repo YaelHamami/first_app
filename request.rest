@@ -54,3 +54,5 @@ Content-Type: application/json
   "owner": "yael"
 }
 
+### Delete Comment
+DELETE http://localhost:3000/comments/674e03a09f73a564322df75d
