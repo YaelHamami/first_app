@@ -35,3 +35,14 @@ export const createComment = async (req: any, res: any) => {
         res.status(400).send(error.message);
     }
 };
+
+// Delete Comment
+export const deleteComment = async (req: any, res: any) => {
+    try {
+        const deleteComment = await commentModel.findByIdAndDelete(req.params.id);
+        if (!deleteComment) return res.status(404).json({ message: 'Comment not found' });
+        res.status(200).json(deleteComment);
+    } catch (err: any) {
+        res.status(500).json({ error: err.message });
+    }
+};
