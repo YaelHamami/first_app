@@ -20,3 +20,11 @@ export const createComment = async (req: any, res: any) => {
         res.status(400).send(error.message);
     }
 };
+
+export const deleteComment = async (req: any, res: any) => {
+    try {
+        res.send("Delete Comment")
+    } catch (err: any) {
+        res.status(500).json({ error: err.message });
+    }
+};
