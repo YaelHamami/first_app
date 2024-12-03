@@ -23,7 +23,9 @@ export const createComment = async (req: any, res: any) => {
 
 export const deleteComment = async (req: any, res: any) => {
     try {
-        res.send("Delete Comment")
+        const deleteComment = await commentModel.findByIdAndDelete(req.params.id, req.body);
+        if (!deleteComment) return res.status(404).json({ message: 'Comment not found' });
+        res.status(200).json(deleteComment);
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
