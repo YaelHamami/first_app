@@ -1,10 +1,17 @@
 import { commentModel } from "../models/comments_model";
 
-// Get All Comments
+// Get All Comments, Or By Post Id
 export const getAllComments = async (req: any, res: any) => {
     try {
-        const comments = await commentModel.find();
-        res.status(200).json(comments);
+        const { postId } = req.query;
+
+        if (postId) {
+            const comments = await commentModel.find({ postId });
+            res.status(200).json(comments);
+        } else {
+            const comments = await commentModel.find();
+            res.status(200).json(comments);
+        }
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
