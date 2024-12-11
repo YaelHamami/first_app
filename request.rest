@@ -53,3 +53,14 @@ Content-Type: application/json
 
 ### Delete Comment
 DELETE http://localhost:3000/comments/674e03a09f73a564322df75d
+
+### Update Comment
+
+PUT http://localhost:3000/comments/674f7a17935c3dfc90d91868
+Content-Type: application/json
+
+{
+  "postId": "674cbf10e4304a6f3b4b5046", 
+  "content": "Great picture.",
+  "owner": "Roei"
+}
