@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import { postsRouter } from './routes/posts_route';
 import { commentsRouter } from './routes/comments_route';
+import { usersRouter } from './routes/users_route';
 import local_mongoose from "mongoose";
 
 const app = express();
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
+app.use('/users', commentsRouter);
+
 
 app.get('/', (req, res) => {
     res.send("hello world")
