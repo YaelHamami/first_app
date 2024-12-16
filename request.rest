@@ -6,7 +6,7 @@ GET http://localhost:3000/posts
 ### Get Post By Id
 GET http://localhost:3000/posts/674cbf10e4304a6f3b4b5046
 
-### Get Post By Sender
+### Get Posts By Sender
 GET http://localhost:3000/posts?sender=Sagi
 
 ### Create Post
