@@ -12,7 +12,7 @@ commentsRouter.get('/:id', getCommentById);
 commentsRouter.post("/", createComment);
 
 // Delete Comment By ID
-commentsRouter.delete('/:id', deleteComment);
+commentsRouter.delete('/:id', deleteComment.bind(deleteComment));
 
 // Update Comment By ID
-commentsRouter.put('/:id', updateComment);
+commentsRouter.put('/:id', updateComment.bind(updateComment));
