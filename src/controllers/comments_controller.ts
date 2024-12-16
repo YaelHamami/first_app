@@ -1,7 +1,6 @@
-import { Request } from "express";
+import { Request, Response } from "express";
 import { commentModel } from "../models/comments_model";
 import { postModel } from "../models/posts_model";
-import { Response } from "express";
 
 // Get All Comments, Or By Post Id
 export const getAllComments = async (req: Request, res: Response) => {
