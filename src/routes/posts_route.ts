@@ -1,16 +1,17 @@
 import express from 'express';
-const app = express();
-import { getPostById, createPost, updatePost, getAllPostsOrBySender } from "../controllers/posts_controller";
+import postsController from "../controllers/posts_controller";
+
 export const postsRouter = express.Router();
 
+// Get All Posts, or all posts published by a sender if provided
+postsRouter.get('/', postsController.getAll.bind(postsController));
+
 // Get Post By ID
-postsRouter.get('/:id', getPostById);
+postsRouter.get('/:id', postsController.getById.bind(postsController));
 
 // Create Post
-postsRouter.post("/", createPost);
+postsRouter.post("/", postsController.create.bind(postsController));
 
 // Update Post By ID
-postsRouter.put('/:id', updatePost.bind(updatePost));
+postsRouter.put('/:id', postsController.update.bind(postsController));
 
-// Get All Posts, or all posts published by a sender if provided
-postsRouter.get('/', getAllPostsOrBySender.bind(getAllPostsOrBySender));
