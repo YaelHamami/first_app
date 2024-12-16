@@ -10,7 +10,7 @@ postsRouter.get('/:id', getPostById);
 postsRouter.post("/", createPost);
 
 // Update Post By ID
-postsRouter.put('/:id', updatePost);
+postsRouter.put('/:id', updatePost.bind(updatePost));
 
 // Get All Posts, or all posts published by a sender if provided
-postsRouter.get('/', getAllPostsOrBySender);
+postsRouter.get('/', getAllPostsOrBySender.bind(getAllPostsOrBySender));

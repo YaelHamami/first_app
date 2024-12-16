@@ -1,6 +1,7 @@
+import { Request, Response } from "express";
 import { postModel } from "../models/posts_model";
 
-export const getPostById = async (req: any, res: any) => {
+export const getPostById = async (req: Request, res: Response) => {
     const postId = req.params.id;
     try {
         const post = await postModel.findById(postId);
@@ -14,7 +15,7 @@ export const getPostById = async (req: any, res: any) => {
     }
 };
 
-export const createPost = async (req: any, res: any) => {
+export const createPost = async (req: Request, res: Response) => {
     const postBody = req.body;
     try {
         const post = await postModel.create(postBody);
@@ -24,7 +25,7 @@ export const createPost = async (req: any, res: any) => {
     }
 };
 
-export const updatePost = async (req: any, res: any) => {
+export const updatePost = async (req: Request, res: Response) => {
     try {
         const updatedPost = await postModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedPost) return res.status(404).json({ message: 'Post not found' });
@@ -34,7 +35,7 @@ export const updatePost = async (req: any, res: any) => {
     }
 };
 
-export const getAllPostsOrBySender = async (req: any, res: any) => {
+export const getAllPostsOrBySender = async (req: Request, res: Response) => {
     try {
         const { sender } = req.query;
 

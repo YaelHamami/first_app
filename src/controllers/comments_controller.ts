@@ -1,9 +1,10 @@
+import { Request } from "express";
 import { commentModel } from "../models/comments_model";
 import { postModel } from "../models/posts_model";
-import { getPostById } from "./posts_controller";
+import { Response } from "express";
 
 // Get All Comments, Or By Post Id
-export const getAllComments = async (req: any, res: any) => {
+export const getAllComments = async (req: Request, res: Response) => {
     try {
         const { postId } = req.query;
 
@@ -20,7 +21,7 @@ export const getAllComments = async (req: any, res: any) => {
 };
 
 // Get Comment By Id
-export const getCommentById = async (req: any, res: any) => {
+export const getCommentById = async (req: Request, res: Response) => {
     const commentId = req.params.id;
     try {
         const comment = await commentModel.findById(commentId);
@@ -35,7 +36,7 @@ export const getCommentById = async (req: any, res: any) => {
 };
 
 // Create Comment
-export const createComment = async (req: any, res: any) => {
+export const createComment = async (req: Request, res: Response) => {
     const commentBody = req.body;
     try {
         const post = await commentModel.create(commentBody);
@@ -46,7 +47,7 @@ export const createComment = async (req: any, res: any) => {
 };
 
 // Delete Comment
-export const deleteComment = async (req: any, res: any) => {
+export const deleteComment = async (req: Request, res: Response) => {
     try {
         const deleteComment = await commentModel.findByIdAndDelete(req.params.id);
         if (!deleteComment) return res.status(404).json({ message: 'Comment not found' });
@@ -57,7 +58,7 @@ export const deleteComment = async (req: any, res: any) => {
 };
 
 // Update Comment
-export const updateComment = async (req: any, res: any) => {
+export const updateComment = async (req: Request, res: Response) => {
     try {
         // Check if the post exists by finding the post ID
         const postExists = await postModel.findById(req.body.postId);
