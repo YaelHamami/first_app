@@ -64,3 +64,27 @@ Content-Type: application/json
   "content": "Great picture.",
   "owner": "Roei"
 }
+
+
+/////// Users ///////
+
+### Register
+
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "userName": "sagi",
+  "email": "sagi@gmail",
+  "password": "123"
+}
+
+### Login
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "sagi@gmail",
+  "password": "123"
+}
