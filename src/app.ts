@@ -4,15 +4,15 @@ import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import { postsRouter } from './routes/posts_route';
 import { commentsRouter } from './routes/comments_route';
+import local_mongoose from "mongoose";
 
 const app = express();
 dotenv.config();
 const port = process.env.PORT;
 
-const local_mongoose = require("mongoose");
 local_mongoose.connect(process.env.DB_CONNECTION);
 const db = mongoose.connection;
-db.on("error", (error: any) => console.error(error));
+db.on("error", (error: Error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 app.use(bodyParser.json())

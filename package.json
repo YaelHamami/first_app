@@ -4,13 +4,12 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "nodemon ./src/app.ts",
-    "start": "node ./src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./src/app.ts",
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YaelHamami/app_a.git"
+    "url": "git+https://github.com/YaelHamami/first_app.git"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
@@ -20,8 +19,10 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.9.3",
     "nodemon": "^3.1.7",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   },

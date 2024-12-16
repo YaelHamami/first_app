@@ -20,7 +20,7 @@ class PostsController extends BaseController<IPost> {
                 const posts = await postModel.find();
                 res.status(200).json(posts);
             }
-        } catch (error: any) {
+        } catch (error) {
             res.status(400).send(error.message);
         }
     }

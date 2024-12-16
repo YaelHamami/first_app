@@ -21,10 +21,11 @@ class CommentsController extends BaseController<IComments> {
                 const comments = await commentModel.find();
                 res.status(200).json(comments);
             }
-        } catch (err: any) {
+        } catch (err) {
             res.status(500).json({ error: err.message });
         }
     }
+
     async update(req: Request, res: Response) {
         try {
             // Check if the post exists by finding the post ID
@@ -34,12 +35,10 @@ class CommentsController extends BaseController<IComments> {
             }
 
             super.update(req, res);
-        } catch (err: any) {
+        } catch (err) {
             res.status(500).json({ error: err.message });
         }
     };
-
 }
 
 export default new CommentsController();
-
