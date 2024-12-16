@@ -23,12 +23,12 @@ export const login = async (req: Request, res: Response) => {
     try {
         const user = await userModel.findOne({ email: req.body.email });
         if (!user) {
-            res.status(400).send('wrong username or password');
+            res.status(400).send('wrong email or password');
             return;
         }
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) {
-            res.status(400).send('wrong username or password');
+            res.status(400).send('wrong email or password');
             return;
         }
         if (!process.env.ACCESS_TOKEN_SECRET) {
