@@ -5,12 +5,11 @@ import userModel from '../models/users_model';
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const password = req.body.password;
-        const userName = req.body.userName;
+        const { password, userName, email } = req.body
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         const user = await userModel.create({
-            email: req.body.email,
+            email,
             password: hashedPassword,
             userName
         });
