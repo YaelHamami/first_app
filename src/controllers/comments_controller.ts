@@ -14,7 +14,7 @@ export const getAllComments = async (req: Request, res: Response) => {
             const comments = await commentModel.find();
             res.status(200).json(comments);
         }
-    } catch (err: any) {
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
@@ -29,7 +29,7 @@ export const getCommentById = async (req: Request, res: Response) => {
         } else {
             res.status(404).send("Comment not found");
         }
-    } catch (error: any) {
+    } catch (error) {
         res.status(400).send(error.message);
     }
 };
@@ -40,7 +40,7 @@ export const createComment = async (req: Request, res: Response) => {
     try {
         const post = await commentModel.create(commentBody);
         res.status(201).send(post);
-    } catch (error: any) {
+    } catch (error) {
         res.status(400).send(error.message);
     }
 };
@@ -51,7 +51,7 @@ export const deleteComment = async (req: Request, res: Response) => {
         const deleteComment = await commentModel.findByIdAndDelete(req.params.id);
         if (!deleteComment) return res.status(404).json({ message: 'Comment not found' });
         res.status(200).json(deleteComment);
-    } catch (err: any) {
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
@@ -71,7 +71,7 @@ export const updateComment = async (req: Request, res: Response) => {
         
         if (!updateComment) return res.status(404).json({ message: 'Comment not found' });
         res.status(200).json(updateComment);
-    } catch (err: any) {
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };

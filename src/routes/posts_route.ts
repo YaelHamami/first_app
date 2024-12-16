@@ -1,5 +1,4 @@
 import express from 'express';
-const app = express();
 import { getPostById, createPost, updatePost, getAllPostsOrBySender } from "../controllers/posts_controller";
 export const postsRouter = express.Router();
 
