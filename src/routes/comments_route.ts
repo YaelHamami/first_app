@@ -1,18 +1,18 @@
 import express from 'express';
-import { createComment, getAllComments, deleteComment, getCommentById, updateComment } from "../controllers/comments_controller";
+import commentsController from "../controllers/comments_controller";
 export const commentsRouter = express.Router();
 
 // Get All Comments, Or By PostId
-commentsRouter.get('/', getAllComments);
+commentsRouter.get('/', commentsController.getAll.bind(commentsController));
 
 // Get Comment By Id
-commentsRouter.get('/:id', getCommentById);
+commentsRouter.get('/:id', commentsController.getById.bind(commentsController));
 
 // Create Comment
-commentsRouter.post("/", createComment);
+commentsRouter.post("/", commentsController.create.bind(commentsController));
 
 // Delete Comment By ID
-commentsRouter.delete('/:id', deleteComment.bind(deleteComment));
+commentsRouter.delete('/:id', commentsController.delete.bind(commentsController));
 
 // Update Comment By ID
-commentsRouter.put('/:id', updateComment.bind(updateComment));
+commentsRouter.put('/:id', commentsController.update.bind(commentsController));
