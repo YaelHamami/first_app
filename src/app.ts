@@ -6,6 +6,7 @@ import { postsRouter } from './routes/posts_route';
 import { commentsRouter } from './routes/comments_route';
 import { usersRouter } from './routes/users_route';
 import local_mongoose from "mongoose";
+import { authRouter } from './routes/auth_route';
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ db.once("open", () => console.log("Connected to Database"));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true}));
 
+app.use('/auth', authRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', commentsRouter);
