@@ -4,13 +4,13 @@ export interface IUser {
   _id?: string;
   userName: string;
   password: string;
-  firstName: string|null;
-  lastName: string|null;
-  phone_number: string|null;
-  date_of_birth: Date|null;
-  gender: string|null;
   email: string;
-  refreshToken: String[];
+  firstName?: string|null;
+  lastName?: string|null;
+  phone_number?: string|null;
+  date_of_birth?: Date|null;
+  gender?: string|null;
+  refreshToken?: String[];
 }
 
 const userSchema = new mongoose.Schema<IUser>({
