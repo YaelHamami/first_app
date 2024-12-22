@@ -84,8 +84,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "userName": "sagiezra2",
-  "email": "sagiezra2@gmail",
+  "userName": "sagiezra22",
+  "email": "sagiezra2a@gmail",
   "password": "123"
 }
 
@@ -104,6 +104,11 @@ Content-Type: application/json
 
 DELETE http://localhost:3000/users/676817143be1c8ebe3ec1bdb
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmNmNjhhMTg1Y2VmNzZlNTg5MGUiLCJyYW5kb20iOiIwLjA2OTI5ODIwNjYxMTAwODE2IiwiaWF0IjoxNzM0ODgwNTQzLCJleHAiOjE3MzQ4OTEzNDN9.KCFdxyRsbFWx9H3sJ2IkhthFrEPnGBnXUOCaZjL8GfI
+
+### Get User By Id
+GET http://localhost:3000/users/67682ede17373e1968230b78
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MzY0MTE4NWQxODM0OGRjYWY2ZjgiLCJyYW5kb20iOiIwLjc1NDc3Mzc0ODM0NjYyMjEiLCJpYXQiOjE3MzQ4ODMyOTQsImV4cCI6MTczNTQ4ODA5NH0.W0n5vFHelVP_3oLGbmPFadoIUsVYJxcvRxqFqXINhUY
+
 
 ### Get All Users
 
