@@ -6,3 +6,6 @@ export const usersRouter = express.Router();
 // Delete User By ID
 usersRouter.delete('/:id', authMiddleware, usersController.delete.bind(usersController));
 
+// Update User By ID
+usersRouter.put('/:id', authMiddleware, usersController.update.bind(usersController));
+

@@ -48,11 +48,20 @@ abstract class BaseController<T> {
         }
     };
 
-    async update(req: Request, res: Response) {
+    async update(req: authenticatedRequest, res: Response, userId) {
         try {
-            const updatedItem = await this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
-            if (!updatedItem) return res.status(404).json({ message: 'Not found' });
-            res.status(200).json(updatedItem);
+            const authenticatedUserId = req.params.userId; // ID of the logged-in user
+
+            if (authenticatedUserId !== userId){
+                res.status(403).send('Forbbiden');
+            } else {
+                const updatedItem = await this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
+                if (!updatedItem) {
+                    res.status(404).json({ message: 'Not found' });
+                } else {
+                    res.status(200).json(updatedItem);
+                }
+            }
         } catch (err: any) {
             res.status(500).json({ error: err.message });
         }
