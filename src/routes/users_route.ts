@@ -8,3 +8,6 @@ usersRouter.delete('/:id', authMiddleware, usersController.delete.bind(usersCont
 
 // Get All Posts, or all posts published by a sender if provided
 usersRouter.get('/', authMiddleware, usersController.getAll.bind(usersController));
+
+// Update User By ID
+usersRouter.put('/:id', authMiddleware, usersController.update.bind(usersController));

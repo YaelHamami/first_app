@@ -22,8 +22,17 @@ class UsersController extends BaseController<IUser> {
         async delete(req: authenticatedRequest, res: Response) {
             try {
                 const userId = req.params.id // User id
-                await super.delete(req, res, userId) 
-            } catch (err: any) {
+                await super.delete(req, res, userId);
+            } catch (err) {
+                res.status(500).json({ error: err.message });
+            }
+        };
+
+        async update(req: authenticatedRequest, res: Response) {
+            try {
+                const userId = req.params.id // User id
+                await super.update(req, res, userId);
+            } catch (err) {
                 res.status(500).json({ error: err.message });
             }
         };
