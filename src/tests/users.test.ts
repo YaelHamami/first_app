@@ -6,6 +6,8 @@ import { Express } from "express";
 import { User } from "./common";
 import { postModel } from "../models/posts_model";
 import usersMock from "./usersMock.json";
+import { commentModel } from "../models/comments_model";
+import commentsMock from "./commentsMock.json";
 
 
 var app: Express;
