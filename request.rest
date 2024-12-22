@@ -104,3 +104,8 @@ Content-Type: application/json
 ### Delete
 DELETE http://localhost:3000/users/676817143be1c8ebe3ec1bdb
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MTcxNDNiZTFjOGViZTNlYzFiZGIiLCJpYXQiOjE3MzQ4NzQ5MDIsImV4cCI6MTczNDg3ODUwMn0.dhKqDFR-UPF66WEXEOolRgUbU2OKbpr-iV3p9jaTR6k
+
+
+### Get All Users
+GET http://localhost:3000/users
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY3ZmI5YjkyMzhmMjk5ODdlZTBlMzMiLCJpYXQiOjE3MzQ4Njc4NzAsImV4cCI6MTczNDg3MTQ3MH0.JgC9rRllq1FwXY20blaF2nnGkDql2ASjjbgN7gcPVVg
