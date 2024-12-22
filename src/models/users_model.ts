@@ -10,6 +10,7 @@ export interface IUser {
   date_of_birth: Date|null;
   gender: string|null;
   email: string;
+  refreshToken: String[];
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -50,6 +51,10 @@ const userSchema = new mongoose.Schema<IUser>({
       unique: true, // Ensure that emails are unique
       trim: true,
     },
+    refreshToken: {
+      type: [String],
+      default: [],
+    }
   });
 
 const userModel = mongoose.model<IUser>("Users", userSchema);
