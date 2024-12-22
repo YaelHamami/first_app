@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Model } from "mongoose";
-import internal from "stream";
 
 export interface authenticatedRequest extends Request {
     userId: string
@@ -69,7 +68,7 @@ abstract class BaseController<T> {
                 res.status(403).send('Forbbiden');
             } else {
                 const deletedItem = await this.model.findByIdAndDelete(req.params.id);
-                
+
                 if (!deletedItem) res.status(404).json({ message: 'Not found' });
                 res.status(200).json(deletedItem);
             }
