@@ -56,11 +56,12 @@ Content-Type: application/json
 
 {
   "postId": "674cbf10e4304a6f3b4b5046", 
-  "content": "This is a great post! Thanks for sharing.",
-  "owner": "yael"
+  "ownerId": "67681393f6dd879fcc2b94aa",
+  "content": "This is a great post! Thanks for sharing."
 }
 
 ### Delete Comment
+
 DELETE http://localhost:3000/comments/6767e6c8096a6aee9257a1e4
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYwNTEyMGJjMDk2MmQwY2M2NjUxODEiLCJpYXQiOjE3MzQ4NjIyMDEsImV4cCI6MTczNDg2NTgwMX0.Ud3T9goKKLb2j0ksqW2wO0suxHlwgqr68nCrPpi3lQo
 
@@ -76,7 +77,6 @@ Content-Type: application/json
   "owner": "Roei Lev"
 }
 
-
 /////// Users ///////
 
 ### Register
@@ -85,8 +85,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "userName": "sagiezra",
-  "email": "sagiezra@gmail",
+  "userName": "guy2",
+  "email": "guy2@gmail",
   "password": "123"
 }
 
@@ -96,6 +96,11 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "sagi@gmail",
+  "email": "guy2@gmail",
   "password": "123"
 }
+
+
+### Delete
+DELETE http://localhost:3000/users/676817143be1c8ebe3ec1bdb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MTcxNDNiZTFjOGViZTNlYzFiZGIiLCJpYXQiOjE3MzQ4NzQ5MDIsImV4cCI6MTczNDg3ODUwMn0.dhKqDFR-UPF66WEXEOolRgUbU2OKbpr-iV3p9jaTR6k

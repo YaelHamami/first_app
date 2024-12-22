@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export interface IComments {
     postId: string;
     comment: string;
-    owner: string;
+    ownerId: string;
   }
 
 const CommentSchema = new mongoose.Schema({
@@ -16,9 +16,10 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    owner: {
-        type: String,
-        required: true,
+    ownerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
 });
 

@@ -6,6 +6,7 @@ import { postsRouter } from './routes/posts_route';
 import { commentsRouter } from './routes/comments_route';
 import local_mongoose from "mongoose";
 import { authRouter } from './routes/auth_route';
+import { usersRouter } from './routes/users_route';
 
 dotenv.config();
 const port = process.env.PORT;
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
+app.use('/users', usersRouter);
 
 const db = mongoose.connection;
 db.on("error", (error: Error) => console.error(error));

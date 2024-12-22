@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import userModel, { IUser } from '../models/users_model';
+import { IUser, userModel } from '../models/users_model';
 import { Document } from 'mongoose';
 
 export const register = async (req: Request, res: Response) => {
