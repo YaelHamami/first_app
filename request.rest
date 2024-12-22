@@ -39,7 +39,7 @@ GET http://localhost:3000/comments
 GET http://localhost:3000/comments?postId=674cbf10e4304a6f3b4b5046
 
 ### Get Comment By Id
-GET http://localhost:3000/comments/674f7de48543c25a7d55027a
+GET http://localhost:3000/comments/674f7a28935c3dfc90d9186d
 
 ### Create Comment
 POST http://localhost:3000/comments
@@ -47,22 +47,28 @@ Content-Type: application/json
 
 {
   "postId": "674cbf10e4304a6f3b4b5046", 
-  "content": "This is a great post! Thanks for sharing.",
-  "owner": "yael"
+  "ownerId": "6761bb9f73b3e938873a96cc",
+  "content": "This is a great post! Thanks for sharing."
 }
 
 ### Delete Comment
-DELETE http://localhost:3000/comments/674e03a09f73a564322df75d
+DELETE http://localhost:3000/comments/6767f4ed27d5e87e9afb2fe6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYxYmI5ZjczYjNlOTM4ODczYTk2Y2MiLCJpYXQiOjE3MzQ4NjYxNzksImV4cCI6MTczNDg2OTc3OX0.VZaWy1XUofM0WE1-Mv4PG1zWGUsf52zd7zGws5GbS4k
+
+Content-Type: application/json
+{
+  "ownerId": "6761bb9f73b3e938873a96cc"
+}
 
 ### Update Comment
 
-PUT http://localhost:3000/comments/674f7a17935c3dfc90d91868
+PUT http://localhost:3000/comments/674f7a28935c3dfc90d9186d
 Content-Type: application/json
 
 {
   "postId": "674cbf10e4304a6f3b4b5046", 
-  "content": "Great picture.",
-  "owner": "Roei"
+  "content": "Great picture!!!.",
+  "ownerId": "6761bb9f73b3e938873a96cc"
 }
 
 
@@ -74,8 +80,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "userName": "sagi",
-  "email": "sagi@gmail",
+  "userName": "yaeli2",
+  "email": "yaeli2@gmail",
   "password": "123"
 }
 
@@ -85,6 +91,15 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "sagi@gmail",
+  "email": "yaeli2@gmail",
   "password": "123"
+}
+
+
+### Delete
+DELETE http://localhost:3000/users/6767f55227d5e87e9afb2ff6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY3ZjU1MjI3ZDVlODdlOWFmYjJmZjYiLCJpYXQiOjE3MzQ4NjYyNjUsImV4cCI6MTczNDg2OTg2NX0.ZdVrb5E_mVD2lzBOdBT4bzlYSQL6W151M2AR6rQhmFM
+
+{
+  "_id": "6767f55227d5e87e9afb2ff6"
 }

@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use('/auth', authRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
-app.use('/users', commentsRouter);
+app.use('/users', usersRouter);
 
 
 app.get('/', (req, res) => {
