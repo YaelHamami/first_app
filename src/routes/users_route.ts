@@ -11,3 +11,6 @@ usersRouter.get('/', authMiddleware, usersController.getAll.bind(usersController
 
 // Update User By ID
 usersRouter.put('/:id', authMiddleware, usersController.update.bind(usersController));
+
+// Get User By ID
+usersRouter.get('/:id', authMiddleware, usersController.getById.bind(usersController));

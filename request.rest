@@ -110,6 +110,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmNmN
 GET http://localhost:3000/users
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmVkZTE3MzczZTE5NjgyMzBiNzgiLCJyYW5kb20iOiIwLjIxMjU5NDExODI0MDAwNjE4IiwiaWF0IjoxNzM0ODgwOTkyLCJleHAiOjE3MzQ4OTE3OTJ9.MVmqb_rcSXWgJloKRUatf-1EehInKuMRuMVM25TG3_k
 
+### Get User By Id
+GET http://localhost:3000/users
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MzY0MTE4NWQxODM0OGRjYWY2ZjgiLCJyYW5kb20iOiIwLjYwNzkyOTEwNjYwODIxMTEiLCJpYXQiOjE3MzQ4ODI4ODMsImV4cCI6MTczNTQ4NzY4M30.7suTae1HFafMendxoX4wD-POiV_3c0EjoI56a8nVMkE
+
+
 ### Update User
 
 PUT http://localhost:3000/users/67682ede17373e1968230b78
