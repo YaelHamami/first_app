@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
 "title": "Hello", 
-"owner": "Sagi", 
+"ownerId": "676822d0b3c24ba28e23f7cf", 
 "content": "My Post..."
 }
 
@@ -29,8 +29,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYy
 Content-Type: application/json
 
 {
-  "title": "Hello",
-  "owner": "Kevin",
+  "title": "Hello 2222",
   "content": "Hello World..."
 }
 
@@ -56,7 +55,7 @@ Content-Type: application/json
 
 {
   "postId": "674cbf10e4304a6f3b4b5046", 
-  "ownerId": "67681393f6dd879fcc2b94aa",
+  "ownerId": "676822d0b3c24ba28e23f7cf",
   "content": "This is a great post! Thanks for sharing."
 }
 
@@ -72,9 +71,9 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYy
 Content-Type: application/json
 
 {
-  "postId": "674df5c81b3fe9863591b29a", 
-  "content": "Great picture.",
-  "owner": "Roei Lev"
+  "postId": "6768273a1b4a4ec8f13d93be", 
+  "content": "Great picture!!!...",
+  "ownerId": "676822d0b3c24ba28e23f7cf"
 }
 
 /////// Users ///////
@@ -101,6 +100,18 @@ Content-Type: application/json
 }
 
 
-### Delete
-DELETE http://localhost:3000/users/676817143be1c8ebe3ec1bdb
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MTcxNDNiZTFjOGViZTNlYzFiZGIiLCJpYXQiOjE3MzQ4NzQ5MDIsImV4cCI6MTczNDg3ODUwMn0.dhKqDFR-UPF66WEXEOolRgUbU2OKbpr-iV3p9jaTR6k
+### Delete User
+DELETE http://localhost:3000/users/676828e51ac24db3bfe3fb55
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MjhlNTFhYzI0ZGIzYmZlM2ZiNTUiLCJyYW5kb20iOiIwLjY1NjA1MDAwODg3Nzc2NTciLCJpYXQiOjE3MzQ4Nzk0NzUsImV4cCI6MTczNDg5MDI3NX0.Hb36UWv6_LJ8YkQjM33O_lBsjG-aWj-GVOCk_stIkTg
+
+### Update User
+
+PUT http://localhost:3000/users/676829011ac24db3bfe3fb5c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI
+
+Content-Type: application/json
+
+{
+  "email": "yaeli1@gmail",
+  "password": "ssss"
+}
