@@ -1,9 +1,7 @@
 import request from "supertest";
 import { initApp } from "../server";
 import mongoose from "mongoose";
-import { commentModel } from "../models/comments_model";
 import { Express } from "express";
-import commentsMock from "./commentsMock.json";
 import postsMock from "./postsMock.json";
 import { userModel } from "../models/users_model";
 import { User } from "./common";
@@ -21,7 +19,6 @@ beforeAll(async () => {
     console.log("beforeAll");
     app = await initApp();
     await postModel.deleteMany();
-    await commentModel.deleteMany();
     await userModel.deleteMany();
     await request(app).post("/auth/register").send(testUser);
     const loginRes = await request(app).post("/auth/login").send(testUser);
