@@ -101,17 +101,23 @@ Content-Type: application/json
 
 
 ### Delete User
-DELETE http://localhost:3000/users/676828e51ac24db3bfe3fb55
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MjhlNTFhYzI0ZGIzYmZlM2ZiNTUiLCJyYW5kb20iOiIwLjY1NjA1MDAwODg3Nzc2NTciLCJpYXQiOjE3MzQ4Nzk0NzUsImV4cCI6MTczNDg5MDI3NX0.Hb36UWv6_LJ8YkQjM33O_lBsjG-aWj-GVOCk_stIkTg
+
+DELETE http://localhost:3000/users/676817143be1c8ebe3ec1bdb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmNmNjhhMTg1Y2VmNzZlNTg5MGUiLCJyYW5kb20iOiIwLjA2OTI5ODIwNjYxMTAwODE2IiwiaWF0IjoxNzM0ODgwNTQzLCJleHAiOjE3MzQ4OTEzNDN9.KCFdxyRsbFWx9H3sJ2IkhthFrEPnGBnXUOCaZjL8GfI
+
+### Get All Users
+
+GET http://localhost:3000/users
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmVkZTE3MzczZTE5NjgyMzBiNzgiLCJyYW5kb20iOiIwLjIxMjU5NDExODI0MDAwNjE4IiwiaWF0IjoxNzM0ODgwOTkyLCJleHAiOjE3MzQ4OTE3OTJ9.MVmqb_rcSXWgJloKRUatf-1EehInKuMRuMVM25TG3_k
 
 ### Update User
 
-PUT http://localhost:3000/users/676829011ac24db3bfe3fb5c
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI
+PUT http://localhost:3000/users/67682ede17373e1968230b78
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmVkZTE3MzczZTE5NjgyMzBiNzgiLCJyYW5kb20iOiIwLjMzNDgyNzMzNDA2ODU3MTciLCJpYXQiOjE3MzQ4ODEwMzYsImV4cCI6MTczNDg5MTgzNn0.NOU0Z1LeZygHRu5AxoOT4k2cS5-WHTqNE8hp-jaY9vg
 
 Content-Type: application/json
 
 {
-  "email": "yaeli1@gmail",
+  "email": "yaeli11@gmail",
   "password": "ssss"
 }

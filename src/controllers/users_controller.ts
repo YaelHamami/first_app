@@ -10,14 +10,14 @@ class UsersController extends BaseController<IUser> {
         super(userModel);
     }
 
-    //TODO: Get All Users, Or By User Id
-        async getAll(req: Request, res: Response): Promise<void> {
-            try {
-                res.send("Get All Users")
-            } catch (err) {
-                res.status(500).json({ error: err.message });
-            }
+    async getAll(req: Request, res: Response) {
+        try {
+            const users = await userModel.find();
+            res.status(200).json(users);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
         }
+    }
 
         async delete(req: authenticatedRequest, res: Response) {
             try {
