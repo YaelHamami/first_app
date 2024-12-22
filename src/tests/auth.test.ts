@@ -3,7 +3,7 @@ import { initApp } from "../server";
 import mongoose from "mongoose";
 import { postModel } from "../models/posts_model";
 import { Express } from "express";
-import userModel, { IUser } from "../models/users_model";
+import { userModel } from "../models/users_model";
 import { User } from "./common";
 
 var app: Express;

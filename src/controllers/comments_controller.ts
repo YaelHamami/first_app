@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { commentModel, IComments } from "../models/comments_model";
 import BaseController from "./base_controller";
+import {authenticatedRequest} from "./base_controller";
 import { postModel } from "../models/posts_model";
 
 
@@ -39,6 +40,19 @@ class CommentsController extends BaseController<IComments> {
             res.status(500).json({ error: err.message });
         }
     };
+
+    async delete(req: authenticatedRequest, res: Response) {
+        const commentId = req.params.id;
+            
+        try {
+                const comment = await super.getByIdInternal(commentId)
+                const commntOwnerId = comment.ownerId.toString()
+    
+                await super.delete(req, res, commntOwnerId)
+            } catch (err: any) {
+                res.status(500).json({ error: err.message });
+            }
+        };
 }
 
 export default new CommentsController();

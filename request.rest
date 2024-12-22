@@ -56,11 +56,12 @@ Content-Type: application/json
 
 {
   "postId": "674cbf10e4304a6f3b4b5046", 
-  "content": "This is a great post! Thanks for sharing.",
-  "owner": "yael"
+  "ownerId": "67681393f6dd879fcc2b94aa",
+  "content": "This is a great post! Thanks for sharing."
 }
 
 ### Delete Comment
+
 DELETE http://localhost:3000/comments/6767e6c8096a6aee9257a1e4
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
 
@@ -75,7 +76,6 @@ Content-Type: application/json
   "content": "Great picture.",
   "owner": "Roei Lev"
 }
-
 
 /////// Users ///////
 
@@ -99,3 +99,8 @@ Content-Type: application/json
   "email": "sagiezra2@gmail",
   "password": "123"
 }
+
+
+### Delete
+DELETE http://localhost:3000/users/676817143be1c8ebe3ec1bdb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MTcxNDNiZTFjOGViZTNlYzFiZGIiLCJpYXQiOjE3MzQ4NzQ5MDIsImV4cCI6MTczNDg3ODUwMn0.dhKqDFR-UPF66WEXEOolRgUbU2OKbpr-iV3p9jaTR6k

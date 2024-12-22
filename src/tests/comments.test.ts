@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { commentModel } from "../models/comments_model";
 import { Express } from "express";
 import testComments from "./commentsMock.json";
-import userModel from "../models/users_model";
+import { userModel } from "../models/users_model";
 import { User } from "./common";
 import { postModel } from "../models/posts_model";
 
@@ -52,7 +52,7 @@ describe("Comments Tests", () => {
         expect(response.statusCode).toBe(201);
         expect(response.body.content).toBe(testComments[0].content);
         expect(response.body.postId).toBe(testComments[0].postId);
-        expect(response.body.owner).toBe(testComments[0].owner);
+        expect(response.body.ownerId).toBe(testComments[0].ownerId);
         commentId = response.body._id;
     });
     test("Comments get by id", async () => {
@@ -62,7 +62,7 @@ describe("Comments Tests", () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.content).toBe(testComments[0].content);
         expect(response.body.postId).toBe(testComments[0].postId);
-        expect(response.body.owner).toBe(testComments[0].owner);
+        expect(response.body.ownerId).toBe(testComments[0].ownerId);
     });
 
     test("Test get comments by postId", async () => {
@@ -73,7 +73,7 @@ describe("Comments Tests", () => {
         expect(response.body.length).toBe(1);
         expect(response.body[0].content).toBe(testComments[0].content);
         expect(response.body[0].postId).toBe(testComments[0].postId);
-        expect(response.body[0].owner).toBe(testComments[0].owner);
+        expect(response.body[0].ownerId).toBe(testComments[0].ownerId);
     });
 
     test("Test Update Comment", async () => {
@@ -89,10 +89,11 @@ describe("Comments Tests", () => {
         const response = await request(app).delete("/comments/" + commentId).set(
             { authorization: "JWT " + testUser.accessToken }
         );
-        expect(response.statusCode).toBe(200);
+        // Delete not by owner -> 403
+        expect(response.statusCode).toBe(403);
         const response2 = await request(app).get("/comments/" + commentId).set(
             { authorization: "JWT " + testUser.accessToken }
         );
-        expect(response2.statusCode).toBe(404);
+        expect(response2.statusCode).toBe(200);
     });
 });

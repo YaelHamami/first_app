@@ -1,17 +1,17 @@
 [
     {
         "content": "Nice hair",
-        "owner": "Sagi",
+        "ownerId": "676827de0dfe42b50da8f6a4",
         "postId": "64ff1b8fa4561a1e8c123abc"
     },
     {
         "content": "Nice smile",
-        "owner": "Yael",
+        "ownerId": "676827de0dfe42b50da8f6a4",
         "postId": "64ff1b8fa4561a1e8c123abc"
     },
     {
         "content": "Nice one",
-        "owner": "Yoram",
+        "ownerId": "676827de0dfe42b50da8f6a4",
         "postId": "64ff1b8fa4561a1e8c123abc"
     }
 ]
