@@ -53,11 +53,6 @@ abstract class BaseController<T> {
             const authenticatedUserId = req.params.userId; // ID of the logged-in user
 
             if (authenticatedUserId !== userId){
-                console.log(`authenticatedUserId: ${authenticatedUserId}`)
-                console.log(`userId: ${userId}`)
-                console.log(`authenticatedUserId: ${typeof authenticatedUserId}`)
-                console.log(`userId: ${typeof userId}`)
-
                 res.status(403).send('Forbbiden');
             } else {
                 const updatedItem = await this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
