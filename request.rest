@@ -39,7 +39,7 @@ GET http://localhost:3000/comments
 GET http://localhost:3000/comments?postId=674cbf10e4304a6f3b4b5046
 
 ### Get Comment By Id
-GET http://localhost:3000/comments/674f7a28935c3dfc90d9186d
+GET http://localhost:3000/comments/67681119db8020c496af71d2
 
 ### Create Comment
 POST http://localhost:3000/comments
@@ -47,18 +47,13 @@ Content-Type: application/json
 
 {
   "postId": "674cbf10e4304a6f3b4b5046", 
-  "ownerId": "6761bb9f73b3e938873a96cc",
+  "ownerId": "67681393f6dd879fcc2b94aa",
   "content": "This is a great post! Thanks for sharing."
 }
 
 ### Delete Comment
-DELETE http://localhost:3000/comments/6767f4ed27d5e87e9afb2fe6
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzYxYmI5ZjczYjNlOTM4ODczYTk2Y2MiLCJpYXQiOjE3MzQ4NjYxNzksImV4cCI6MTczNDg2OTc3OX0.VZaWy1XUofM0WE1-Mv4PG1zWGUsf52zd7zGws5GbS4k
-
-Content-Type: application/json
-{
-  "ownerId": "6761bb9f73b3e938873a96cc"
-}
+DELETE http://localhost:3000/comments/676814d1c47b1b691ab32894
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MTM5M2Y2ZGQ4NzlmY2MyYjk0YWEiLCJpYXQiOjE3MzQ4NzQwNTcsImV4cCI6MTczNDg3NzY1N30.aZ-kEwloLRf9oFF2fK6wDUvj1h31Aha63BMPO3X1Tyw
 
 ### Update Comment
 
@@ -68,7 +63,7 @@ Content-Type: application/json
 {
   "postId": "674cbf10e4304a6f3b4b5046", 
   "content": "Great picture!!!.",
-  "ownerId": "6761bb9f73b3e938873a96cc"
+  "ownerId": "67680f838c5b9b77add115f0"
 }
 
 
@@ -80,8 +75,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "userName": "yaeli2",
-  "email": "yaeli2@gmail",
+  "userName": "guy2",
+  "email": "guy2@gmail",
   "password": "123"
 }
 
@@ -91,15 +86,11 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "yaeli2@gmail",
+  "email": "guy2@gmail",
   "password": "123"
 }
 
 
 ### Delete
-DELETE http://localhost:3000/users/6767f55227d5e87e9afb2ff6
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY3ZjU1MjI3ZDVlODdlOWFmYjJmZjYiLCJpYXQiOjE3MzQ4NjYyNjUsImV4cCI6MTczNDg2OTg2NX0.ZdVrb5E_mVD2lzBOdBT4bzlYSQL6W151M2AR6rQhmFM
-
-{
-  "_id": "6767f55227d5e87e9afb2ff6"
-}
+DELETE http://localhost:3000/users/676817143be1c8ebe3ec1bdb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MTcxNDNiZTFjOGViZTNlYzFiZGIiLCJpYXQiOjE3MzQ4NzQ5MDIsImV4cCI6MTczNDg3ODUwMn0.dhKqDFR-UPF66WEXEOolRgUbU2OKbpr-iV3p9jaTR6k
