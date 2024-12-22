@@ -76,6 +76,13 @@ describe("Posts Tests", () => {
         expect(response.body[0].ownerId).toBe(postsMock[0].ownerId);
     });
 
+    test("Test get post by senderId- bad Request", async () => {
+        const response = await request(app).get("/posts?sender=" + postsMock[0].title).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        expect(response.statusCode).toBe(400);
+    });
+
     const expiredToken = "eyJhbGciOiJIUzI1NaIsInR5cCI6IkpXVCJ1.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI"
     
     test("Test fail Update Post", async () => {
@@ -84,6 +91,15 @@ describe("Posts Tests", () => {
         );
         // No such postId
         expect(response.statusCode).not.toBe(200);
+    });
+
+    const BadPostId = 5
+    test("Test fail Update Post - Internal Server Error", async () => {
+        const response = await request(app).put("/posts/" + BadPostId ).send(postsMock[0]).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        // No such postId
+        expect(response.statusCode).toBe(500);
     });
 
     test("Test success Update Post", async () => {
