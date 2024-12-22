@@ -99,6 +99,17 @@ describe("Comments Tests", () => {
         expect(response2.statusCode).toBe(200);
     });
 
+    test("Test fail Delete Comment", async () => {
+        const response = await request(app).delete("/comments/" + commentId).set(
+            { authorization: "JWT " + "eyJhbGciOiJIUzI1NaIsInR5cCI6IkpXVCJ1.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI" }
+        );
+        expect(response.statusCode).toBe(401);
+        const response2 = await request(app).get("/comments/" + commentId).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        expect(response2.statusCode).toBe(200);
+    });
+
 
     test("Test success Delete Comment", async () => {
         const response = await request(app).delete("/comments/" + commentId).set(

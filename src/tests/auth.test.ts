@@ -5,6 +5,7 @@ import { postModel } from "../models/posts_model";
 import { Express } from "express";
 import { userModel } from "../models/users_model";
 import { User } from "./common";
+import postsMock from "./postsMock.json";
 
 var app: Express;
 
@@ -89,19 +90,11 @@ describe("Auth Tests", () => {
     });
 
     test("Auth test me", async () => {
-        const response = await request(app).post("/posts").send({
-            title: "Test Post",
-            content: "Test Content",
-            owner: "sdfSd",
-        });
+        const response = await request(app).post("/posts").send(postsMock[0]);
         expect(response.statusCode).not.toBe(201);
         const response2 = await request(app).post("/posts").set(
             { authorization: "JWT " + testUser.accessToken }
-        ).send({
-            title: "Test Post",
-            content: "Test Content",
-            owner: "sdfSd",
-        });
+        ).send(postsMock[0]);
         expect(response2.statusCode).toBe(201);
     });
 
@@ -165,11 +158,7 @@ describe("Auth Tests", () => {
 
     //     const response2 = await request(app).post("/posts").set(
     //       { authorization: "JWT " + testUser.accessToken }
-    //     ).send({
-    //       title: "Test Post",
-    //       content: "Test Content",
-    //       owner: "sdfSd",
-    //     });
+    //     ).send(postsMock[0]);
     //     console.log(response2.statusCode)
     //     expect(response2.statusCode).not.toBe(201);
 
@@ -181,11 +170,7 @@ describe("Auth Tests", () => {
 
     //     const response4 = await request(app).post("/posts").set(
     //       { authorization: "JWT " + testUser.accessToken }
-    //     ).send({
-    //       title: "Test Post",
-    //       content: "Test Content",
-    //       owner: "sdfSd",
-    //     });
+    //     ).send(postsMock[0]);
     //     expect(response4.statusCode).toBe(201);
     //   });
 });
