@@ -128,6 +128,7 @@ describe("Auth Tests", () => {
     });
 
     // This could only be tested if the expiration of the tokens is small, which makes it harder to debug, that's the reason it's commented.
+    // change JWT_TOKEN_EXPIRATION in .env file to 3s to make this test work
 
     //   test("Test logout", async () => {
     //     const response = await request(app).post(baseUrl + "/login").send(testUser);
