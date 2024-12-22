@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IPost, postModel } from "../models/posts_model";
-import BaseController from "./base_controller";
+import BaseController, { authenticatedRequest } from "./base_controller";
 
 
 class PostsController extends BaseController<IPost> {
@@ -14,7 +14,7 @@ class PostsController extends BaseController<IPost> {
             const { sender } = req.query;
 
             if (sender) {
-                const posts = await postModel.find({ owner: sender });
+                const posts = await postModel.find({ ownerId: sender });
                 res.status(200).json(posts);
             } else {
                 const posts = await postModel.find();
@@ -24,6 +24,19 @@ class PostsController extends BaseController<IPost> {
             res.status(400).send(error.message);
         }
     }
+
+    async update(req: authenticatedRequest, res: Response) {
+            const postId = req.params.id;
+            try {
+                const post = await super.getByIdInternal(postId)
+                const postOwnerId = post.ownerId.toString()
+                
+                await super.update(req, res, postOwnerId);
+                
+            } catch (err) {
+                res.status(500).json({ error: err.message });
+            }
+        };
 
     // TODO: override create ?
 }

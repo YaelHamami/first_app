@@ -4,7 +4,6 @@ import BaseController from "./base_controller";
 import {authenticatedRequest} from "./base_controller";
 import { postModel } from "../models/posts_model";
 
-
 class CommentsController extends BaseController<IComments> {
     constructor() {
         super(commentModel);
@@ -27,15 +26,19 @@ class CommentsController extends BaseController<IComments> {
         }
     }
 
-    async update(req: Request, res: Response) {
+    async update(req: authenticatedRequest, res: Response) {
+        const commentId = req.params.id;
         try {
+            const comment = await super.getByIdInternal(commentId)
+            const commntOwnerId = comment.ownerId.toString()
+            
             // Check if the post exists by finding the post ID
             const postExists = await postModel.findById(req.body.postId);
             if (!postExists) {
-                return res.status(404).json({ message: 'Post not found' });
+                 res.status(404).json({ message: 'Post not found' });
+            } else {
+                await super.update(req, res, commntOwnerId);
             }
-
-            super.update(req, res);
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
