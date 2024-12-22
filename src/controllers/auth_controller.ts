@@ -42,7 +42,7 @@ const generateToken = (userId: string): tTokens | null => {
         random: random
     },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: process.env.JWT_TOKEN_EXPIRATION });
+        { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION });
     return {
         accessToken: accessToken,
         refreshToken: refreshToken
@@ -102,11 +102,11 @@ const verifyRefreshToken = (refreshToken: string | undefined) => {
             return;
         }
         //verify token
-        if (!process.env.TOKEN_SECRET) {
+        if (!process.env.REFRESH_TOKEN_SECRET) {
             reject("fail");
             return;
         }
-        jwt.verify(refreshToken, process.env.TOKEN_SECRET, async (err: any, payload: any) => {
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err: Error, payload: { _id: string }) => {
             if (err) {
                 reject("fail");
                 return
