@@ -79,6 +79,22 @@ describe("Comments Tests", () => {
         expect(response.body[0].ownerId).toBe(commentsMock[0].ownerId);
     });
 
+    test("Test get comment by postID- bad Request", async () => {
+        const response = await request(app).get("/comments?postId=" + commentsMock[0].content).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        expect(response.statusCode).toBe(500);
+    });
+
+    const BadCommentId = 5
+    test("Test fail Update Comment - Internal Server Error", async () => {
+        const response = await request(app).put("/comments/" + BadCommentId ).send(commentsMock[0]).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        // No such postId
+        expect(response.statusCode).toBe(500);
+    });
+
     test("Test fail Update Comment", async () => {
         const response = await request(app).put("/comments/" + commentId).send(commentsMock[0]).set(
             { authorization: "JWT " + testUser.accessToken }
