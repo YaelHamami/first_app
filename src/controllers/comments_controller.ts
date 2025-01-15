@@ -3,6 +3,7 @@ import { commentModel, IComments } from "../models/comments_model";
 import BaseController from "./base_controller";
 import {authenticatedRequest} from "./base_controller";
 import { postModel } from "../models/posts_model";
+import { error } from "console";
 
 class CommentsController extends BaseController<IComments> {
     constructor() {
@@ -40,7 +41,11 @@ class CommentsController extends BaseController<IComments> {
                 await super.update(req, res, commntOwnerId);
             }
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            if (err.message === 'Item Not Found') {
+                res.status(404).json({error: 'Comment Not Found'})
+            } else {
+                res.status(500).json({ error: err.message });
+            }
         }
     };
 
@@ -53,7 +58,28 @@ class CommentsController extends BaseController<IComments> {
     
                 await super.delete(req, res, commntOwnerId)
             } catch (err: any) {
-                res.status(500).json({ error: err.message });
+                if (err.message === 'Item Not Found') {
+                    res.status(404).json({error: 'Comment Not Found'})
+                } else {
+                    res.status(500).json({ error: err.message });
+                }
+            }
+        };
+
+        async create(req: Request, res: Response) {
+            const postId = req.body.postId;
+
+            try {
+                // Check if the post exists by finding the post ID
+            const postExists = await postModel.findById(postId);
+            if (!postExists) {
+                 res.status(404).json({ message: 'Post not found' });
+            } else {
+                await super.create(req, res);
+            }
+
+            } catch (error) {
+                res.status(400).send(error);
             }
         };
 }
