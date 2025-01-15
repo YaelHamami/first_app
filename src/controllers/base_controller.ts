@@ -16,10 +16,14 @@ abstract class BaseController<T> {
     async getByIdInternal(itemId) {
         try {
             const item = await this.model.findById(itemId);
-            return item;
+            if (item != null) {
+                return item;
+            } else {
+                throw new Error('Item Not Found');
+            }
             
         } catch (error) {
-            return error
+            throw error
         }
     };
 
@@ -28,23 +32,31 @@ abstract class BaseController<T> {
 
         try {
             const item = await this.getByIdInternal(id);
-            if (item != null) {
+            if (item) {
                 res.send(item);
-            } else {
-                res.status(404).send("Not found");
             }
         } catch (error) {
-            res.status(400).send(error);
+            if (error.message == 'Item Not Found') {
+                res.status(404).send({ error: 'Item Not Found'});
+            } else {
+                res.status(400).send({ error: error.message });
+            }
         }
     };
 
     async create(req: Request, res: Response) {
         const body = req.body;
+        const authenticatedUserId = req.params.userId; // ID of the logged-in user
+        const itemToCreate = {
+            ...body,
+            ownerId: authenticatedUserId
+        }
+        
         try {
-            const item = await this.model.create(body);
+            const item = await this.model.create(itemToCreate);
             res.status(201).send(item);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(400).send("Validation failed: One or more Required fields are missing.");
         }
     };
 
@@ -67,19 +79,18 @@ abstract class BaseController<T> {
         }
     };
 
-    async delete(req: authenticatedRequest, res: Response, userId) {
+    async delete(req: authenticatedRequest, res: Response, ownerId) {
         try {
             const authenticatedUserId = req.params.userId; // ID of the logged-in user
-            // const ItemId = req.body.ownerId; // ID of the item to delete from the route
 
             // Ensure that only the authenticated user can delete their Items
-            if (authenticatedUserId !== userId){
+            if (authenticatedUserId !== ownerId){
                 res.status(403).send('Forbbiden');
             } else {
                 const deletedItem = await this.model.findByIdAndDelete(req.params.id);
 
                 if (!deletedItem) res.status(404).json({ message: 'Not found' });
-                res.status(200).json(deletedItem);
+                res.status(200).json({_id: deletedItem._id});
             }
         } catch (err: any) {
             res.status(500).json({ error: err.message });
