@@ -83,13 +83,12 @@ describe("Posts Tests", () => {
     });
 
     const expiredToken = "eyJhbGciOiJIUzI1NaIsInR5cCI6IkpXVCJ1.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI"
-    
     test("Test fail Update Post", async () => {
         const response = await request(app).put("/posts/" + postId).send(postsMock[0]).set(
             { authorization: "JWT " + expiredToken }
         );
         // No such postId
-        expect(response.statusCode).not.toBe(200);
+        expect(response.statusCode).toBe(401);
     });
 
     const BadPostId = 5
@@ -99,6 +98,15 @@ describe("Posts Tests", () => {
         );
         // No such postId
         expect(response.statusCode).toBe(500);
+    });
+
+    const NotExsistPostId = "67891ed02bc40f138cec8593"
+    test("Test fail Update Post - Post Not Found", async () => {
+        const response = await request(app).put("/posts/" + NotExsistPostId ).send(postsMock[0]).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        // No such postId
+        expect(response.statusCode).toBe(404);
     });
 
     test("Test success Update Post", async () => {
