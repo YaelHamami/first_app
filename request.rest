@@ -49,12 +49,11 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3YWMyMTk1
 
 ### Create Comment
 POST http://localhost:3000/comments
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3YWMyMTk1YmJiYWNmNDViZmZiYzkiLCJyYW5kb20iOiIwLjM5ODIzNDIyNjcxODc5MzA1IiwiaWF0IjoxNzM2OTQ3NDkwLCJleHAiOjE3Mzc1NTIyOTB9.gCTfBsUga-0k0G5EwJ-u0PzVqHvy6iB-PQr42mf-p_s
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg5MWYwNTQyM2M4MjUyNThiZTJkYzAiLCJyYW5kb20iOiIwLjM1MDg2NDM2OTMxNTg5NjE1IiwiaWF0IjoxNzM3MDM5NjI5LCJleHAiOjE3Mzc2NDQ0Mjl9.UIdaB58HfjiUu8MS1q1cYUn4UPpu5LdLXBhxvxGvZUo
 Content-Type: application/json
 
 {
-  "postId": "6787b2080a38e414151b39c4", 
-  "content": "This is a great post! Thanks for sharing."
+  "postId": "67891ed02bc40f138cec8595"
 }
 
 ### Delete Comment
@@ -64,14 +63,13 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3YWMyMTk1
 
 ### Update Comment
 
-PUT http://localhost:3000/comments/6767e6c8096a6aee9257a1e4
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+PUT http://localhost:3000/comments/67891771c1dedc3f3f11e04d
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg5MGU0MjFiMzBjOTAxZDU2NjA1MzUiLCJyYW5kb20iOiIwLjEyNjU0ODYyOTU2MzUxNDMxIiwiaWF0IjoxNzM3MDM2MTIxLCJleHAiOjE3Mzc2NDA5MjF9.XkVFJlnOmB0dQy45VAqc2-e5ByBzWDEq5IVY6YJtfyc
 Content-Type: application/json
 
 {
-  "postId": "6768273a1b4a4ec8f13d93be", 
-  "content": "Great picture!!!...",
-  "ownerId": "676822d0b3c24ba28e23f7cf"
+  "postId": "67890da9a0bb7771ae2dcf87", 
+  "content": "Great picture??????????"
 }
 
 /////// Users ///////
@@ -82,8 +80,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "userName": "sagiezra22",
-  "email": "sagiezra2a@gmail",
+  "userName": "sagiezra223",
+  "email": "sagiezra23a@gmail",
   "password": "123"
 }
 
@@ -93,7 +91,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "sagiezra2a@gmail",
+  "email": "sagiezra23a@gmail",
   "password": "123"
 }
 

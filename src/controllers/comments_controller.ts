@@ -29,20 +29,28 @@ class CommentsController extends BaseController<IComments> {
 
     async update(req: authenticatedRequest, res: Response) {
         const commentId = req.params.id;
+        
         try {
             const comment = await super.getByIdInternal(commentId)
             const commntOwnerId = comment.ownerId.toString()
             
-            // Check if the post exists by finding the post ID
-            const postExists = await postModel.findById(req.body.postId);
-            if (!postExists) {
-                 res.status(404).json({ message: 'Post not found' });
-            } else {
-                await super.update(req, res, commntOwnerId);
+            // Check if postId provided in the request body
+            if (req.body.postId) {
+                // Check if the post exists by finding the post ID
+                const postExists = await postModel.findById(req.body.postId);
+                
+                if (!postExists) {
+                    throw new Error('Post not found');
+                }
             }
+
+            await super.update(req, res, commntOwnerId);
+            
         } catch (err) {
             if (err.message === 'Item Not Found') {
                 res.status(404).json({error: 'Comment Not Found'})
+            } else if (err.message === 'Post not found'){
+                res.status(404).json({ message: 'Post not found' });
             } else {
                 res.status(500).json({ error: err.message });
             }
@@ -71,13 +79,13 @@ class CommentsController extends BaseController<IComments> {
 
             try {
                 // Check if the post exists by finding the post ID
-            const postExists = await postModel.findById(postId);
-            if (!postExists) {
-                 res.status(404).json({ message: 'Post not found' });
-            } else {
-                await super.create(req, res);
-            }
+                const postExists = await postModel.findById(postId);
 
+                if (!postExists) {
+                    res.status(404).json({ message: 'Post not found' });
+                } else {
+                    await super.create(req, res);
+                }
             } catch (error) {
                 res.status(400).send(error);
             }

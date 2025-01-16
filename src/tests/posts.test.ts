@@ -25,7 +25,6 @@ beforeAll(async () => {
     testUser.accessToken = loginRes.body.accessToken;
     testUser.refreshToken = loginRes.body.refreshToken;
     testUser._id = loginRes.body._id;
-    // commentsMock[0].ownerId = testUser._id;
     postsMock[0].ownerId = testUser._id;
 });
 
