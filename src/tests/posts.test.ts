@@ -7,7 +7,7 @@ import { userModel } from "../models/users_model";
 import { User } from "./common";
 import { postModel } from "../models/posts_model";
 
-var app: Express;
+let app: Express;
 
 const testUser: User = {
     userName: "sagiezra",

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">99.15% </span>
+                <span class="strong">99.2% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>118/119</span>
+                <span class='fraction'>124/125</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">99.05% </span>
+                <span class="strong">99.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>105/106</span>
+                <span class='fraction'>109/110</span>
             </div>
         
             
@@ -272,13 +272,31 @@
 <a name='L207'></a><a href='#L207'>207</a>
 <a name='L208'></a><a href='#L208'>208</a>
 <a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -487,11 +505,20 @@ import bcrypt from 'bcrypt';
 import { IUser, userModel } from '../models/users_model';
 import { Document } from 'mongoose';
 &nbsp;
+export const hashPassword = async(password: string) =&gt; {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        
+        return await bcrypt.hash(password, salt);
+    } catch (err) {
+        throw new Error('Error With Hash Password');
+    }
+    
+}
 export const register = async (req: Request, res: Response) =&gt; {
     try {
         const { password, userName, email } = req.body
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await hashPassword(password);
         const user = await userModel.create({
             email,
             password: hashedPassword,
@@ -571,7 +598,7 @@ export const login = async (req: Request, res: Response) =&gt; {
     }
 };
 &nbsp;
-type tUser = Document&lt;unknown, {}, IUser&gt; &amp; IUser &amp; Required&lt;{
+export type tUser = Document&lt;unknown, object, IUser&gt; &amp; IUser &amp; Required&lt;{
     _id: string;
 }&gt; &amp; {
     __v: number;
@@ -616,7 +643,7 @@ export const verifyRefreshToken = (refreshToken: string | undefined) =&gt; {
                 user.refreshToken = tokens;
 &nbsp;
                 resolve(user);
-            } catch (err) {
+            } catch {
                 reject("fail");
                 return;
             }
@@ -650,7 +677,7 @@ export const refreshToken = async (req: Request, res: Response) =&gt; {
                 _id: user._id
             });
         //send new token
-    } catch (err) {
+    } catch {
         res.status(500).send("fail");
     }
 };
@@ -660,7 +687,7 @@ export const logout = async (req: Request, res: Response) =&gt; {
         const user = await verifyRefreshToken(req.body.refreshToken);
         await user.save();
         res.status(200).send("success");
-    } catch (err) {
+    } catch {
         res.status(400).send("fail");
     }
 };
@@ -697,7 +724,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-19T08:50:18.938Z
+                at 2025-01-19T13:13:28.535Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -4,14 +4,14 @@ import mongoose from "mongoose";
 import { postModel } from "../models/posts_model";
 import { Express } from "express";
 import { userModel } from "../models/users_model";
-import { Post, User } from "./common";
+import { User } from "./common";
 import postsMock from "./postsMock.json";
 import commentsMock from "./commentsMock.json";
-import { generateToken } from "../controllers/auth_controller";
+import * as AuthController from "../controllers/auth_controller";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-var app: Express;
+let app: Express;
 
 beforeAll(async () => {
     console.log("beforeAll");
@@ -31,6 +31,10 @@ afterAll((done) => {
     console.log("afterAll");
     mongoose.connection.close();
     done();
+});
+
+beforeEach(() => {
+    jest.resetAllMocks();
 });
 
 const baseUrl = "/auth";
@@ -183,8 +187,8 @@ describe("Auth Tests", () => {
 
     test("Returns 500 when generateToken returns null", async () => {
         // Mock `generateToken` to return null without throwing an error
-        jest.spyOn(require("../controllers/auth_controller"), "generateToken").mockReturnValue(null);
-    
+        const spy = jest.spyOn(AuthController, "generateToken").mockReturnValue(null);
+        
         const response = await request(app)
             .post("/auth/login") 
             .send({
@@ -196,7 +200,7 @@ describe("Auth Tests", () => {
         expect(response.statusCode).toBe(500);
         expect(response.text).toBe("Server Error");
     
-        jest.restoreAllMocks(); // Restore original behavior after the test
+        spy.mockRestore(); // Restore original behavior after the test
     });
     
 
@@ -378,7 +382,7 @@ describe("Auth Tests", () => {
         delete process.env.ACCESS_TOKEN_SECRET;
         delete process.env.REFRESH_TOKEN_SECRET;
     
-        const tokens = generateToken("testUserId");
+        const tokens = AuthController.generateToken("testUserId");
         expect(tokens).toBeNull();
     
         // Restore environment variables
@@ -486,9 +490,8 @@ describe("Auth Tests", () => {
         process.env.ACCESS_TOKEN_SECRET = originalAccessTokenSecret;
     });
 
-    test("Returns 400 when verifyRefreshToken returns null (no user)", async () => {
-        jest.spyOn(require("../controllers/auth_controller"), "verifyRefreshToken").mockResolvedValue(null);
-    
+    test("Returns 400 when verifyRefreshToken returns null (no user)", async () => {    
+        const spy = jest.spyOn(AuthController, "verifyRefreshToken").mockResolvedValue(null);
         const response = await request(app).post("/auth/refreshToken").send({
             refreshToken: "someInvalidToken",
         });
@@ -496,16 +499,18 @@ describe("Auth Tests", () => {
         expect(response.statusCode).toBe(400);
         expect(response.text).toBe("fail");
     
-        jest.restoreAllMocks();
+        spy.mockRestore(); // Restore original behavior after the test
     });
 
     test("Returns 500 when generateToken returns null", async () => {
-        jest.spyOn(require("../controllers/auth_controller"), "generateToken").mockReturnValue(null);
-    
-        jest.spyOn(require("../controllers/auth_controller"), "verifyRefreshToken").mockResolvedValue({
+        // Mock `generateToken` to return null
+        jest.spyOn(AuthController, "generateToken").mockReturnValue(null);
+
+        // Mock `verifyRefreshToken` to resolve with a valid user
+        jest.spyOn(AuthController, "verifyRefreshToken").mockResolvedValue({
             _id: testUser._id,
-            refreshToken: testUser.accessToken,
-        });
+            refreshToken: [testUser.refreshToken], // Adjust if `refreshToken` is an array
+        } as unknown as AuthController.tUser);
     
         const response = await request(app).post("/auth/refreshToken").send({
             refreshToken: "validToken",
@@ -518,10 +523,10 @@ describe("Auth Tests", () => {
     });
 
     test("Returns 500 when an unexpected error occurs", async () => {
-        jest.spyOn(require("../controllers/auth_controller"), "verifyRefreshToken").mockImplementation(() => {
+        jest.spyOn(AuthController, "verifyRefreshToken").mockImplementation(() => {
             throw new Error("Unexpected Error");
         });
-    
+
         const response = await request(app).post("/auth/refreshToken").send({
             refreshToken: testUser.refreshToken,
         });

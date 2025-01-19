@@ -4,11 +4,20 @@ import bcrypt from 'bcrypt';
 import { IUser, userModel } from '../models/users_model';
 import { Document } from 'mongoose';
 
+export const hashPassword = async(password: string) => {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        
+        return await bcrypt.hash(password, salt);
+    } catch (err) {
+        throw new Error('Error With Hash Password');
+    }
+    
+}
 export const register = async (req: Request, res: Response) => {
     try {
         const { password, userName, email } = req.body
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await hashPassword(password);
         const user = await userModel.create({
             email,
             password: hashedPassword,
@@ -88,7 +97,7 @@ export const login = async (req: Request, res: Response) => {
     }
 };
 
-type tUser = Document<unknown, {}, IUser> & IUser & Required<{
+export type tUser = Document<unknown, object, IUser> & IUser & Required<{
     _id: string;
 }> & {
     __v: number;
@@ -133,7 +142,7 @@ export const verifyRefreshToken = (refreshToken: string | undefined) => {
                 user.refreshToken = tokens;
 
                 resolve(user);
-            } catch (err) {
+            } catch {
                 reject("fail");
                 return;
             }
@@ -167,7 +176,7 @@ export const refreshToken = async (req: Request, res: Response) => {
                 _id: user._id
             });
         //send new token
-    } catch (err) {
+    } catch {
         res.status(500).send("fail");
     }
 };
@@ -177,7 +186,7 @@ export const logout = async (req: Request, res: Response) => {
         const user = await verifyRefreshToken(req.body.refreshToken);
         await user.save();
         res.status(200).send("success");
-    } catch (err) {
+    } catch {
         res.status(400).send("fail");
     }
 };

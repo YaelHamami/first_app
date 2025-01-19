@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
@@ -43,7 +43,7 @@ db.on("error", (error: Error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 export const initApp = () => {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<Express>((resolve, reject) => {
         if (!process.env.DB_CONNECTION) {
             reject("DB_CONNECTION is not defined in .env file");
         } else {

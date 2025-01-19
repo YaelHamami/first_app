@@ -10,7 +10,7 @@ import { User } from "./common";
 import { postModel } from "../models/posts_model";
 import { Post } from "./common";
 
-var app: Express;
+let app: Express;
 
 const testUser: User = {
     userName: "testUser",

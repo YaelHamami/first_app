@@ -3,7 +3,6 @@ import { commentModel, IComments } from "../models/comments_model";
 import BaseController from "./base_controller";
 import {authenticatedRequest} from "./base_controller";
 import { postModel } from "../models/posts_model";
-import { error } from "console";
 
 class CommentsController extends BaseController<IComments> {
     constructor() {
@@ -65,7 +64,7 @@ class CommentsController extends BaseController<IComments> {
                 const commntOwnerId = comment.ownerId.toString()
     
                 await super.delete(req, res, commntOwnerId)
-            } catch (err: any) {
+            } catch (err) {
                 if (err.message === 'Item Not Found') {
                     res.status(404).json({error: 'Comment Not Found'})
                 } else {

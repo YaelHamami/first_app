@@ -4,14 +4,11 @@ import mongoose from "mongoose";
 import { userModel } from "../models/users_model";
 import { Express } from "express";
 import { User } from "./common";
-import { postModel } from "../models/posts_model";
 import usersMock from "./usersMock.json";
-import { commentModel } from "../models/comments_model";
-import commentsMock from "./commentsMock.json";
 import BaseController from "../controllers/base_controller";
 
 
-var app: Express;
+let app: Express;
 
 const testUser: User = {
     userName: usersMock[0].userName,

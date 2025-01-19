@@ -7,13 +7,14 @@ export interface authenticatedRequest extends Request {
 
 abstract class BaseController<T> {
     model: Model<T>;
-    constructor(model: any) {
+    constructor(model: Model<T>) {
         this.model = model;
     }
 
     abstract getAll(req: Request, res: Response): Promise<void>;
 
     async getByIdInternal(itemId) {
+        // eslint-disable-next-line no-useless-catch
         try {
             const item = await this.model.findById(itemId);
             if (item != null) {
@@ -21,7 +22,6 @@ abstract class BaseController<T> {
             } else {
                 throw new Error('Item Not Found');
             }
-            
         } catch (error) {
             throw error
         }
@@ -55,7 +55,7 @@ abstract class BaseController<T> {
         try {
             const item = await this.model.create(itemToCreate);
             res.status(201).send(item);
-        } catch (error) {
+        } catch {
             res.status(400).send("Validation failed: One or more Required fields are missing.");
         }
     };
@@ -74,7 +74,7 @@ abstract class BaseController<T> {
                     res.status(200).json(updatedItem);
                 }
             }
-        } catch (err: any) {
+        } catch (err) {
             res.status(500).json({ error: err.message });
         }
     };
@@ -92,7 +92,7 @@ abstract class BaseController<T> {
                 if (!deletedItem) res.status(404).json({ message: 'Not found' });
                 res.status(200).json({_id: deletedItem._id});
             }
-        } catch (err: any) {
+        } catch (err) {
             res.status(500).json({ error: err.message });
         }
     };

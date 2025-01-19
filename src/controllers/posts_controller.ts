@@ -41,8 +41,6 @@ class PostsController extends BaseController<IPost> {
                 }
             }
         };
-
-    // TODO: override create ?
 }
 
 export default new PostsController();
