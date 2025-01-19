@@ -15,12 +15,13 @@
         "date_of_birth": "2019-01-16"
     },
     {
-        "email": "yael@gmail.com",
+        "email": "yael2@gmail.com",
         "password": "Aa1234567890",
-        "gender": "male"
+        "gender": "female"
     },
     {
         "email": "yael@gmail.com",
-        "password": "Aa1234567890"
+        "password": "Aa1234567890",
+        "gender": "male"
     }
 ]

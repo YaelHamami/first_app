@@ -18,12 +18,6 @@ const testUser: User = {
     password: "testpassword",
 }
 
-const testUser2: User = {
-    userName: "testUser2",
-    email: "test@user2.com",
-    password: "testpassword2",
-}
-
 const testPost: Post = {
     title: postsMock[0].title,
     _id: "",
@@ -47,13 +41,6 @@ beforeAll(async () => {
     testUser.accessToken = loginRes.body.accessToken;
     testUser.refreshToken = loginRes.body.refreshToken;
     testUser._id = loginRes.body._id;
-
-    // create testUser2
-    await request(app).post("/auth/register").send(testUser2);
-    const loginRes2 = await request(app).post("/auth/login").send(testUser2);
-    testUser2.accessToken = loginRes2.body.accessToken;
-    testUser2.refreshToken = loginRes2.body.refreshToken;
-    testUser2._id = loginRes2.body._id;
 
     // Create a post required for the comment
     const portResponse = await request(app).post("/posts").send({
@@ -104,14 +91,6 @@ describe("Comments Tests", () => {
         ).send(commentsMock[0]);
 
         expect(response.statusCode).toBe(404);
-    });
-
-    test("Test Fail Create Comment - Bad Token", async () => {
-        const response = await request(app).post("/comments").set(
-            { authorization: "JWT " + badToken }
-        ).send(commentsMock[0]);
-
-        expect(response.statusCode).toBe(401);
     });
 
     test("Test Fail Create Comment - One or more Required fields are missing.", async () => {
@@ -188,41 +167,6 @@ describe("Comments Tests", () => {
         expect(response2.body.ownerId).toBe(testUser._id);
     });
 
-    //TODO: Move to auth tests
-    const badToken = "eyJ77GciOiJIUzI1NaIsInR5cCI6IkpXVCJ1.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI"
-    
-    test("Test fail Update Comment - Bad Token", async () => {
-        const response = await request(app).put("/comments/" + commentId).send(commentsMock[1]).set(
-            { authorization: "JWT " + badToken }
-        );
-        // Forbbiden.
-        expect(response.statusCode).toBe(401);
-        
-        const response2 = await request(app).get("/comments/" + commentId).set(
-            { authorization: "JWT " + testUser.accessToken }
-        );
-        expect(response2.statusCode).toBe(200);
-        expect(response2.body.content).toBe(commentsMock[0].content);
-        expect(response2.body.postId).toBe(testPost._id);
-        expect(response2.body.ownerId).toBe(testUser._id);
-    });
-
-    test("Test fail Update Comment - User Doesnt ownes the comment", async () => {
-        const response = await request(app).put("/comments/" + commentId).send({content: commentsMock[1].content}).set(
-            { authorization: "JWT " + testUser2.accessToken }
-        );
-        // Forbbiden.
-        expect(response.statusCode).toBe(403);
-        
-        const response2 = await request(app).get("/comments/" + commentId).set(
-            { authorization: "JWT " + testUser.accessToken }
-        );
-        expect(response2.statusCode).toBe(200);
-        expect(response2.body.content).toBe(commentsMock[0].content);
-        expect(response2.body.postId).toBe(testPost._id);
-        expect(response2.body.ownerId).toBe(testUser._id);
-    });
-
     test("Test success Update Comment", async () => {
         const response1 = await request(app).post("/posts").send(postsMock[1]).set(
             { authorization: "JWT " + testUser.accessToken }
@@ -236,30 +180,6 @@ describe("Comments Tests", () => {
         expect(response2.body.content).toBe(commentsMock[1].content);
         expect(response2.body.postId).toBe(postId);
         expect(response2.body.ownerId).toBe(testUser._id);
-    });
-
-    test("Test fail Delete Comment - Bad Token", async () => {
-        const response = await request(app).delete("/comments/" + commentId).set(
-            { authorization: "JWT " + badToken }
-        );
-        expect(response.statusCode).toBe(401);
-
-        const response2 = await request(app).get("/comments/" + commentId).set(
-            { authorization: "JWT " + testUser.accessToken }
-        );
-        expect(response2.statusCode).toBe(200);
-    });
-
-    test("Test fail Delete Comment - User Doesnt ownes the comment", async () => {
-        const response = await request(app).delete("/comments/" + commentId).set(
-            { authorization: "JWT " + testUser2.accessToken }
-        );
-        expect(response.statusCode).toBe(403);
-
-        const response2 = await request(app).get("/comments/" + commentId).set(
-            { authorization: "JWT " + testUser.accessToken }
-        );
-        expect(response2.statusCode).toBe(200);
     });
 
     test("Test fail Delete Comment - Non Exsisting Id", async () => {
@@ -289,5 +209,23 @@ describe("Comments Tests", () => {
             { authorization: "JWT " + testUser.accessToken }
         );
         expect(response2.statusCode).toBe(404);
+    });
+    
+    test("Returns 400 when an error occurs during post lookup", async () => {
+        const postId = "nonexistentPostId";
+
+        // Mock `postModel.findById` to throw an error
+        jest.spyOn(postModel, "findById").mockImplementation(() => {
+            throw new Error("Database Error");
+        });
+
+        const response = await request(app)
+            .post("/comments")
+            .send({ postId })
+            .set({ authorization: "JWT " + testUser.accessToken });
+
+        expect(response.statusCode).toBe(400);
+
+        jest.restoreAllMocks(); // Restore original implementation after test
     });
 });

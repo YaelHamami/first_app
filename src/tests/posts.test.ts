@@ -37,14 +37,14 @@ afterAll((done) => {
 let postId = "";
 
 describe("Posts Tests", () => {
-    test("Posts test get all", async () => {
+    test("Test success get all posts", async () => {
         const response = await request(app).get("/posts").set(
             { authorization: "JWT " + testUser.accessToken }
         );
         expect(response.statusCode).toBe(200);
         expect(response.body.length).toBe(0);
     });
-    test("Test Create Post", async () => {
+    test("Test success Create Post", async () => {
         const response = await request(app).post("/posts").set(
             { authorization: "JWT " + testUser.accessToken }
         ).send(postsMock[0]);
@@ -54,7 +54,7 @@ describe("Posts Tests", () => {
         expect(response.body.ownerId).toBe(postsMock[0].ownerId);
         postId = response.body._id;
     });
-    test("Posts get by id", async () => {
+    test("Test success Posts get by id", async () => {
         const response = await request(app).get("/posts/" + postId).set(
             { authorization: "JWT " + testUser.accessToken }
         );
@@ -82,21 +82,12 @@ describe("Posts Tests", () => {
         expect(response.statusCode).toBe(400);
     });
 
-    const expiredToken = "eyJhbGciOiJIUzI1NaIsInR5cCI6IkpXVCJ1.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI"
-    test("Test fail Update Post", async () => {
-        const response = await request(app).put("/posts/" + postId).send(postsMock[0]).set(
-            { authorization: "JWT " + expiredToken }
-        );
-        // No such postId
-        expect(response.statusCode).toBe(401);
-    });
-
     const BadPostId = 5
     test("Test fail Update Post - Internal Server Error", async () => {
         const response = await request(app).put("/posts/" + BadPostId ).send(postsMock[0]).set(
             { authorization: "JWT " + testUser.accessToken }
         );
-        // No such postId
+
         expect(response.statusCode).toBe(500);
     });
 

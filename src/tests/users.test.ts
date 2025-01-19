@@ -8,6 +8,7 @@ import { postModel } from "../models/posts_model";
 import usersMock from "./usersMock.json";
 import { commentModel } from "../models/comments_model";
 import commentsMock from "./commentsMock.json";
+import BaseController from "../controllers/base_controller";
 
 
 var app: Express;
@@ -18,17 +19,32 @@ const testUser: User = {
     password: usersMock[0].password,
 }
 
-const unAuthorizedToken = "eyJhbGciOiJIUzI1NaIsInR5cCI6IkpXVCJ1.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI"
+const testUser2: User = {
+    userName: usersMock[1].userName,
+    email: usersMock[1].email,
+    password: usersMock[1].password,
+}
+
+const nonExistingUserId = "674df5c81b3fe9863591b29a"
 
 beforeAll(async () => {
     console.log("beforeAll");
     app = await initApp();
     await userModel.deleteMany();
+
+    // create testUser
     await request(app).post("/auth/register").send(testUser);
-    const loginRes = await request(app).post("/auth/login").send(testUser);
+    const loginRes = await request(app).post("/auth/login").send(testUser);    
     testUser.accessToken = loginRes.body.accessToken;
     testUser.refreshToken = loginRes.body.refreshToken;
     testUser._id = loginRes.body._id;
+
+    // create testUser2
+    await request(app).post("/auth/register").send(testUser2);
+    const loginRes2 = await request(app).post("/auth/login").send(testUser2);
+    testUser2.accessToken = loginRes2.body.accessToken;
+    testUser2.refreshToken = loginRes2.body.refreshToken;
+    testUser2._id = loginRes2.body._id;
 });
 
 afterAll((done) => {
@@ -38,60 +54,95 @@ afterAll((done) => {
 });
 
 describe("Users Tests", () => {
-    test("Users test get all", async () => {
+    test("Test Success users get all", async () => {
         const response = await request(app).get("/users").set(
             { authorization: "JWT " + testUser.accessToken }
         );
         expect(response.statusCode).toBe(200);
-        expect(response.body.length).toBe(1);
+        expect(response.body.length).toBe(2); // Created 2 users in the beforeAll
     });
+
+    test("Test fail users get all - Internal Server Error", async () => {
+        jest.spyOn(userModel, "find").mockRejectedValue(new Error("Database Error"));
     
+        const response = await request(app).get("/users").set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+    
+        expect(response.statusCode).toBe(500);
+        expect(response.body.error).toBe("Database Error");
+    
+        jest.restoreAllMocks();
+    });
+
     test("Succses Users get by id", async () => {
         const response = await request(app).get("/users/" + testUser._id).set(
             { authorization: "JWT " + testUser.accessToken }
         );
-        console.log(response.body)
         expect(response.statusCode).toBe(200);
         expect(response.body.email).toBe(usersMock[0].email);
         expect(response.body.userName).toBe(usersMock[0].userName);
     });
 
-    const nonExistingId = "674df5c81b3fe9863591b29a"
-    test("Users get by non existing id", async () => {
-        const response = await request(app).get("/users/" + nonExistingId).set(
+    test("Test Users get by non existing id", async () => {
+        const response = await request(app).get("/users/" + nonExistingUserId).set(
             { authorization: "JWT " + testUser.accessToken }
         );
         expect(response.statusCode).not.toBe(200);
     });
 
-    test("Test fail Update User", async () => {
-        const response = await request(app).put("/users/" + testUser._id).send(usersMock[0]).set(
-            { authorization: "JWT " + unAuthorizedToken }
+    test("Test fail Update User - Email in use by another user", async () => {
+        const response = await request(app).put("/users/" + testUser._id).send(usersMock[1]).set(
+            { authorization: "JWT " + testUser.accessToken }
         );
-        // not authorized token
-        expect(response.statusCode).toBe(401);
+        
+        expect(response.statusCode).toBe(500);
     });
 
+    test("Test fail Update User - Internal Server Error", async () => {
+        jest.spyOn(BaseController.prototype, "update").mockRejectedValue(new Error("Update Error"));
+    
+        const response = await request(app).put("/users/" + testUser._id).send(usersMock[2]).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+    
+        expect(response.statusCode).toBe(500);
+        expect(response.body.error).toBe("Update Error");
+    
+        jest.restoreAllMocks();
+    });
+    
+
     test("Test success Update User", async () => {
-        const response = await request(app).put("/users/" + testUser._id).send(usersMock[1]).set(
+        const response = await request(app).put("/users/" + testUser._id).send(usersMock[2]).set(
             { authorization: "JWT " + testUser.accessToken }
         );
         expect(response.statusCode).toBe(200);
     });
 
-    test("Test fail Delete User", async () => {
+    test("Test fail Delete User - Internal Server Error", async () => {
+        jest.spyOn(BaseController.prototype, "delete").mockRejectedValue(new Error("Delete Error"));
+    
         const response = await request(app).delete("/users/" + testUser._id).set(
-            { authorization: "JWT " + unAuthorizedToken }
-        );
-        expect(response.statusCode).toBe(401);
-        const response2 = await request(app).get("/users/" + testUser._id).set(
             { authorization: "JWT " + testUser.accessToken }
         );
-        expect(response2.statusCode).toBe(200);
+    
+        expect(response.statusCode).toBe(500);
+        expect(response.body.error).toBe("Delete Error");
+    
+        jest.restoreAllMocks();
+    });
+    
+
+
+    test("Test fail Delete User - Non Exsisting UserId", async () => {
+        const response = await request(app).delete("/users/" + nonExistingUserId).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        expect(response.statusCode).toBe(403);
     });
 
-
-    test("Test Delete User", async () => {
+    test("Test Success Delete User", async () => {
         const response = await request(app).delete("/users/" + testUser._id).set(
             { authorization: "JWT " + testUser.accessToken }
         );

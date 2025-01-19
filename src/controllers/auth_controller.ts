@@ -24,7 +24,7 @@ type tTokens = {
     accessToken: string,
     refreshToken: string
 }
-const generateToken = (userId: string): tTokens | null => {
+export const generateToken = (userId: string): tTokens | null => {
     if (!process.env.ACCESS_TOKEN_SECRET || !process.env.REFRESH_TOKEN_SECRET) {
         return null;
     }
@@ -84,7 +84,6 @@ export const login = async (req: Request, res: Response) => {
             _id: user._id 
         });
     } catch (err) {
-        console.log('error: ', err)
         res.status(400).send(err);
     }
 };
@@ -94,7 +93,7 @@ type tUser = Document<unknown, {}, IUser> & IUser & Required<{
 }> & {
     __v: number;
 }
-const verifyRefreshToken = (refreshToken: string | undefined) => {
+export const verifyRefreshToken = (refreshToken: string | undefined) => {
     return new Promise<tUser>((resolve, reject) => {
         //get refresh token from body
         if (!refreshToken) {
@@ -113,20 +112,24 @@ const verifyRefreshToken = (refreshToken: string | undefined) => {
             }
             //get the user id fromn token
             const userId = payload._id;
+            
             try {
                 //get the user form the db
-                const user = await userModel.findById(userId);
+                const user = await userModel.findById(userId);                
                 if (!user) {
                     reject("fail");
                     return;
                 }
+
                 if (!user.refreshToken || !user.refreshToken.includes(refreshToken)) {
                     user.refreshToken = [];
                     await user.save();
+                    
                     reject("fail");
                     return;
                 }
                 const tokens = user.refreshToken!.filter((token) => token !== refreshToken);
+                // const tokens = user.refreshToken.filter((token) => token !== refreshToken);
                 user.refreshToken = tokens;
 
                 resolve(user);
@@ -156,6 +159,7 @@ export const refreshToken = async (req: Request, res: Response) => {
         }
         user.refreshToken.push(tokens.refreshToken);
         await user.save();
+        
         res.status(200).send(
             {
                 accessToken: tokens.accessToken,
@@ -164,7 +168,7 @@ export const refreshToken = async (req: Request, res: Response) => {
             });
         //send new token
     } catch (err) {
-        res.status(400).send("fail");
+        res.status(500).send("fail");
     }
 };
 
@@ -178,12 +182,16 @@ export const logout = async (req: Request, res: Response) => {
     }
 };
 
+type Payload = {
+    _id: string;
+};
+
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authorization = req.header('authorization');
     const token = authorization && authorization.split(' ')[1];
 
     if (!token) {
-        res.status(401).send('Unauthorized');
+        res.status(401).send('Access Denied');
         return;
     }
     if (!process.env.ACCESS_TOKEN_SECRET) {
@@ -196,7 +204,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
             res.status(401).send('Access Denied');
             return;
         }
-        req.params.userId = (payload)._id;
+        req.params.userId = (payload as Payload)._id;
         next();
     });
 };
