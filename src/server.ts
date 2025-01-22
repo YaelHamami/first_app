@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
@@ -17,9 +17,6 @@ const app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send("hello world")
-})
 app.use('/auth', authRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
@@ -46,7 +43,7 @@ db.on("error", (error: Error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 export const initApp = () => {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<Express>((resolve, reject) => {
         if (!process.env.DB_CONNECTION) {
             reject("DB_CONNECTION is not defined in .env file");
         } else {

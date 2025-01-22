@@ -7,7 +7,7 @@ import { userModel } from "../models/users_model";
 import { User } from "./common";
 import { postModel } from "../models/posts_model";
 
-var app: Express;
+let app: Express;
 
 const testUser: User = {
     userName: "sagiezra",
@@ -25,7 +25,6 @@ beforeAll(async () => {
     testUser.accessToken = loginRes.body.accessToken;
     testUser.refreshToken = loginRes.body.refreshToken;
     testUser._id = loginRes.body._id;
-    // commentsMock[0].ownerId = testUser._id;
     postsMock[0].ownerId = testUser._id;
 });
 
@@ -38,14 +37,14 @@ afterAll((done) => {
 let postId = "";
 
 describe("Posts Tests", () => {
-    test("Posts test get all", async () => {
+    test("Test success get all posts", async () => {
         const response = await request(app).get("/posts").set(
             { authorization: "JWT " + testUser.accessToken }
         );
         expect(response.statusCode).toBe(200);
         expect(response.body.length).toBe(0);
     });
-    test("Test Create Post", async () => {
+    test("Test success Create Post", async () => {
         const response = await request(app).post("/posts").set(
             { authorization: "JWT " + testUser.accessToken }
         ).send(postsMock[0]);
@@ -55,7 +54,7 @@ describe("Posts Tests", () => {
         expect(response.body.ownerId).toBe(postsMock[0].ownerId);
         postId = response.body._id;
     });
-    test("Posts get by id", async () => {
+    test("Test success Posts get by id", async () => {
         const response = await request(app).get("/posts/" + postId).set(
             { authorization: "JWT " + testUser.accessToken }
         );
@@ -83,23 +82,22 @@ describe("Posts Tests", () => {
         expect(response.statusCode).toBe(400);
     });
 
-    const expiredToken = "eyJhbGciOiJIUzI1NaIsInR5cCI6IkpXVCJ1.eyJfaWQiOiI2NzY4MjkwMTFhYzI0ZGIzYmZlM2ZiNWMiLCJyYW5kb20iOiIwLjYyNTM4MzM4OTA1MTI3MDgiLCJpYXQiOjE3MzQ4Nzk0OTEsImV4cCI6MTczNDg5MDI5MX0.aRqcIk088ub-vIxq84T_YaGrMijdpxK_Kdfm7Wf4OuI"
-    
-    test("Test fail Update Post", async () => {
-        const response = await request(app).put("/posts/" + postId).send(postsMock[0]).set(
-            { authorization: "JWT " + expiredToken }
-        );
-        // No such postId
-        expect(response.statusCode).not.toBe(200);
-    });
-
     const BadPostId = 5
     test("Test fail Update Post - Internal Server Error", async () => {
         const response = await request(app).put("/posts/" + BadPostId ).send(postsMock[0]).set(
             { authorization: "JWT " + testUser.accessToken }
         );
-        // No such postId
+
         expect(response.statusCode).toBe(500);
+    });
+
+    const NotExsistPostId = "67891ed02bc40f138cec8593"
+    test("Test fail Update Post - Post Not Found", async () => {
+        const response = await request(app).put("/posts/" + NotExsistPostId ).send(postsMock[0]).set(
+            { authorization: "JWT " + testUser.accessToken }
+        );
+        // No such postId
+        expect(response.statusCode).toBe(404);
     });
 
     test("Test success Update Post", async () => {

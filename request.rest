@@ -2,19 +2,19 @@
 
 ### Get All posts
 GET http://localhost:3000/posts
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Get Post By Id
-GET http://localhost:3000/posts/674df5c81b3fe9863591b29a
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+GET http://localhost:3000/posts/678cf43fe9cbb50c28980d74
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Get Posts By Sender
-GET http://localhost:3000/posts?sender=Sagi
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+GET http://localhost:3000/posts?sender=678cf46848b675db0dbf62a7
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Create Post
 POST http://localhost:3000/posts
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3YWMyMTk1YmJiYWNmNDViZmZiYzkiLCJyYW5kb20iOiIwLjM5ODIzNDIyNjcxODc5MzA1IiwiaWF0IjoxNzM2OTQ3NDkwLCJleHAiOjE3Mzc1NTIyOTB9.gCTfBsUga-0k0G5EwJ-u0PzVqHvy6iB-PQr42mf-p_s
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 Content-Type: application/json
 
 {
@@ -23,8 +23,8 @@ Content-Type: application/json
 }
 
 ### Update Post
-PUT http://localhost:3000/posts/674df5c81b3fe9863591b29a
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+PUT http://localhost:3000/posts/678cf4ec48b675db0dbf62ae
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 Content-Type: application/json
 
 {
@@ -37,41 +37,39 @@ Content-Type: application/json
 
 ### Get All Comments
 GET http://localhost:3000/comments
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Get All Comments Of A Post ( By PostId )
-GET http://localhost:3000/comments?postId=674cbf10e4304a6f3b4b5046
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+GET http://localhost:3000/comments?postId=678cf4ec48b675db0dbf62ae
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Get Comment By Id
-GET http://localhost:3000/comments/6787b7b6c0a7852a0226fb14
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3YWMyMTk1YmJiYWNmNDViZmZiYzkiLCJyYW5kb20iOiIwLjYyNTI5NTQwMzk3ODAxNjgiLCJpYXQiOjE3MzY5NTIyNjUsImV4cCI6MTczNzU1NzA2NX0.nmcJO-GVzQmCt59FKx0pWi7WoPO-NVGDPlh7a5eKdy0
+GET http://localhost:3000/comments/678cf50348b675db0dbf62b6
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Create Comment
 POST http://localhost:3000/comments
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3YWMyMTk1YmJiYWNmNDViZmZiYzkiLCJyYW5kb20iOiIwLjM5ODIzNDIyNjcxODc5MzA1IiwiaWF0IjoxNzM2OTQ3NDkwLCJleHAiOjE3Mzc1NTIyOTB9.gCTfBsUga-0k0G5EwJ-u0PzVqHvy6iB-PQr42mf-p_s
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 Content-Type: application/json
 
 {
-  "postId": "6787b2080a38e414151b39c4", 
-  "content": "This is a great post! Thanks for sharing."
+  "postId": "678cf4ec48b675db0dbf62ae",
+  "content": "why not"
 }
 
 ### Delete Comment
 
-DELETE http://localhost:3000/comments/6767e6c8096a6aee9257a1e4
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3YWMyMTk1YmJiYWNmNDViZmZiYzkiLCJyYW5kb20iOiIwLjIxMzQwMzE3MjM0NjM3Mzg1IiwiaWF0IjoxNzM2OTUzMTY1LCJleHAiOjE3Mzc1NTc5NjV9.slOzXSZ6Q0t0RJfTRytTc5snArN3Z6QuNgEDKXsnRFI
+DELETE http://localhost:3000/comments/678cf50348b675db0dbf62b6
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Update Comment
 
-PUT http://localhost:3000/comments/6767e6c8096a6aee9257a1e4
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MWM1YWYyY2I5YTYwMjdmYzk4MmIiLCJyYW5kb20iOiIwLjIxMjc4NjI3NDgzMDQ3MjUyIiwiaWF0IjoxNzM0ODc2NDIwLCJleHAiOjE3MzU0ODEyMjB9.4HogoZuG3vOEYY3zmxke266G5JyVXCIjLoW5MU8yvqU
+PUT http://localhost:3000/comments/678cf50348b675db0dbf62b6
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 Content-Type: application/json
 
 {
-  "postId": "6768273a1b4a4ec8f13d93be", 
-  "content": "Great picture!!!...",
-  "ownerId": "676822d0b3c24ba28e23f7cf"
+  "content": "Great picture??????????"
 }
 
 /////// Users ///////
@@ -82,8 +80,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "userName": "sagiezra22",
-  "email": "sagiezra2a@gmail",
+  "userName": "yaeltest",
+  "email": "yTrst@gmail",
   "password": "123"
 }
 
@@ -93,39 +91,38 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "sagiezra2a@gmail",
-  "password": "123"
+  "email": "yaeli112@gmail",
+  "password": "ssss"
 }
 
 
 ### Delete User
 
-DELETE http://localhost:3000/users/6787d39334329320c77c7ce1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg3ZDM5MzM0MzI5MzIwYzc3YzdjZTEiLCJyYW5kb20iOiIwLjE0Mjg0NjkxMzY3OTgwNDk1IiwiaWF0IjoxNzM2OTU0Nzc1LCJleHAiOjE3Mzc1NTk1NzV9.xxQCMUYaNxmIomU3CvPWMIGtSDEeYnDWm3RGYJ9PSUc
+DELETE http://localhost:3000/users/678cf46848b675db0dbf62a7
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Get User By Id
-GET http://localhost:3000/users/67682ede17373e1968230b78
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MzY0MTE4NWQxODM0OGRjYWY2ZjgiLCJyYW5kb20iOiIwLjc1NDc3Mzc0ODM0NjYyMjEiLCJpYXQiOjE3MzQ4ODMyOTQsImV4cCI6MTczNTQ4ODA5NH0.W0n5vFHelVP_3oLGbmPFadoIUsVYJxcvRxqFqXINhUY
+GET http://localhost:3000/users/678cf46848b675db0dbf62a7
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 
 ### Get All Users
 
 GET http://localhost:3000/users
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmVkZTE3MzczZTE5NjgyMzBiNzgiLCJyYW5kb20iOiIwLjIxMjU5NDExODI0MDAwNjE4IiwiaWF0IjoxNzM0ODgwOTkyLCJleHAiOjE3MzQ4OTE3OTJ9.MVmqb_rcSXWgJloKRUatf-1EehInKuMRuMVM25TG3_k
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 ### Get User By Id
-GET http://localhost:3000/users/67682ede17373e1968230b78
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MzY0MTE4NWQxODM0OGRjYWY2ZjgiLCJyYW5kb20iOiIwLjc1NDc3Mzc0ODM0NjYyMjEiLCJpYXQiOjE3MzQ4ODMyOTQsImV4cCI6MTczNTQ4ODA5NH0.W0n5vFHelVP_3oLGbmPFadoIUsVYJxcvRxqFqXINhUY
+GET http://localhost:3000/users/678cf46848b675db0dbf62a7
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjQ2ODQ4YjY3NWRiMGRiZjYyYTciLCJyYW5kb20iOiIwLjA1Mjg2OTg4NDE0NjE5NTY0NSIsImlhdCI6MTczNzI5MDg2MiwiZXhwIjoxNzM3ODk1NjYyfQ.mirGMkkvHcHvO_hfwFuPZrzwB_JhvPmr_m8mvEILrdI
 
 
 ### Update User
 
-PUT http://localhost:3000/users/67682ede17373e1968230b78
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4MmVkZTE3MzczZTE5NjgyMzBiNzgiLCJyYW5kb20iOiIwLjMzNDgyNzMzNDA2ODU3MTciLCJpYXQiOjE3MzQ4ODEwMzYsImV4cCI6MTczNDg5MTgzNn0.NOU0Z1LeZygHRu5AxoOT4k2cS5-WHTqNE8hp-jaY9vg
-
+PUT http://localhost:3000/users/678cf9cc8f40a1d61128ee00
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzhjZjljYzhmNDBhMWQ2MTEyOGVlMDAiLCJyYW5kb20iOiIwLjIwNzE1ODQ3ODQzNDQyMzgiLCJpYXQiOjE3MzcyOTIyNzEsImV4cCI6MTczNzg5NzA3MX0.YEGJt2w7k2RKd7lTuOFJpSCGNsqtWeOh6WeDN9536HY
 Content-Type: application/json
 
 {
-  "email": "yaeli11@gmail",
+  "email": "yaeli112@gmail",
   "password": "ssss"
 }

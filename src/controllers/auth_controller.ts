@@ -4,11 +4,20 @@ import bcrypt from 'bcrypt';
 import { IUser, userModel } from '../models/users_model';
 import { Document } from 'mongoose';
 
+export const hashPassword = async(password: string) => {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        
+        return await bcrypt.hash(password, salt);
+    } catch (err) {
+        throw new Error('Error With Hash Password');
+    }
+    
+}
 export const register = async (req: Request, res: Response) => {
     try {
         const { password, userName, email } = req.body
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await hashPassword(password);
         const user = await userModel.create({
             email,
             password: hashedPassword,
@@ -24,7 +33,7 @@ type tTokens = {
     accessToken: string,
     refreshToken: string
 }
-const generateToken = (userId: string): tTokens | null => {
+export const generateToken = (userId: string): tTokens | null => {
     if (!process.env.ACCESS_TOKEN_SECRET || !process.env.REFRESH_TOKEN_SECRET) {
         return null;
     }
@@ -84,17 +93,16 @@ export const login = async (req: Request, res: Response) => {
             _id: user._id 
         });
     } catch (err) {
-        console.log('error: ', err)
         res.status(400).send(err);
     }
 };
 
-type tUser = Document<unknown, {}, IUser> & IUser & Required<{
+export type tUser = Document<unknown, object, IUser> & IUser & Required<{
     _id: string;
 }> & {
     __v: number;
 }
-const verifyRefreshToken = (refreshToken: string | undefined) => {
+export const verifyRefreshToken = (refreshToken: string | undefined) => {
     return new Promise<tUser>((resolve, reject) => {
         //get refresh token from body
         if (!refreshToken) {
@@ -113,24 +121,28 @@ const verifyRefreshToken = (refreshToken: string | undefined) => {
             }
             //get the user id fromn token
             const userId = payload._id;
+            
             try {
                 //get the user form the db
-                const user = await userModel.findById(userId);
+                const user = await userModel.findById(userId);                
                 if (!user) {
                     reject("fail");
                     return;
                 }
+
                 if (!user.refreshToken || !user.refreshToken.includes(refreshToken)) {
                     user.refreshToken = [];
                     await user.save();
+                    
                     reject("fail");
                     return;
                 }
                 const tokens = user.refreshToken!.filter((token) => token !== refreshToken);
+                // const tokens = user.refreshToken.filter((token) => token !== refreshToken);
                 user.refreshToken = tokens;
 
                 resolve(user);
-            } catch (err) {
+            } catch {
                 reject("fail");
                 return;
             }
@@ -156,6 +168,7 @@ export const refreshToken = async (req: Request, res: Response) => {
         }
         user.refreshToken.push(tokens.refreshToken);
         await user.save();
+        
         res.status(200).send(
             {
                 accessToken: tokens.accessToken,
@@ -163,8 +176,8 @@ export const refreshToken = async (req: Request, res: Response) => {
                 _id: user._id
             });
         //send new token
-    } catch (err) {
-        res.status(400).send("fail");
+    } catch {
+        res.status(500).send("fail");
     }
 };
 
@@ -173,9 +186,13 @@ export const logout = async (req: Request, res: Response) => {
         const user = await verifyRefreshToken(req.body.refreshToken);
         await user.save();
         res.status(200).send("success");
-    } catch (err) {
+    } catch {
         res.status(400).send("fail");
     }
+};
+
+type Payload = {
+    _id: string;
 };
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
@@ -183,7 +200,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     const token = authorization && authorization.split(' ')[1];
 
     if (!token) {
-        res.status(401).send('Unauthorized');
+        res.status(401).send('Access Denied');
         return;
     }
     if (!process.env.ACCESS_TOKEN_SECRET) {
@@ -196,7 +213,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
             res.status(401).send('Access Denied');
             return;
         }
-        req.params.userId = (payload)._id;
+        req.params.userId = (payload as Payload)._id;
         next();
     });
 };

@@ -10,7 +10,7 @@ export interface IUser {
   phone_number?: string | null;
   date_of_birth?: Date | null;
   gender?: string | null;
-  refreshToken?: String[];
+  refreshToken?: string[];
 }
 
 const userSchema = new mongoose.Schema<IUser>({
