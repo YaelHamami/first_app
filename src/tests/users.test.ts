@@ -25,7 +25,6 @@ const testUser2: User = {
 const nonExistingUserId = "674df5c81b3fe9863591b29a"
 
 beforeAll(async () => {
-    console.log("beforeAll");
     app = await initApp();
     await userModel.deleteMany();
 
@@ -45,7 +44,6 @@ beforeAll(async () => {
 });
 
 afterAll((done) => {
-    console.log("afterAll");
     mongoose.connection.close();
     done();
 });

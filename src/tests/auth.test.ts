@@ -14,7 +14,6 @@ import bcrypt from 'bcrypt';
 let app: Express;
 
 beforeAll(async () => {
-    console.log("beforeAll");
     app = await initApp();
     await userModel.deleteMany();
     await postModel.deleteMany();
@@ -28,7 +27,6 @@ beforeAll(async () => {
 });
 
 afterAll((done) => {
-    console.log("afterAll");
     mongoose.connection.close();
     done();
 });

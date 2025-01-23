@@ -16,7 +16,6 @@ const testUser: User = {
 }
 
 beforeAll(async () => {
-    console.log("beforeAll");
     app = await initApp();
     await postModel.deleteMany();
     await userModel.deleteMany();
@@ -29,7 +28,6 @@ beforeAll(async () => {
 });
 
 afterAll((done) => {
-    console.log("afterAll");
     mongoose.connection.close();
     done();
 });
