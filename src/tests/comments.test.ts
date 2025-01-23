@@ -29,7 +29,6 @@ const BadCommentId = 5
 const NonExsistcommentId = "67891771c1dedc3f3f11e04d"
 
 beforeAll(async () => {
-    console.log("beforeAll");
     app = await initApp();
     await postModel.deleteMany();
     await commentModel.deleteMany();
@@ -55,7 +54,6 @@ beforeAll(async () => {
 });
 
 afterAll((done) => {
-    console.log("afterAll");
     mongoose.connection.close();
     done();
 });
